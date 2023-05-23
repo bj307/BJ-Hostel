@@ -4,7 +4,9 @@
  */
 package view;
 
+import DAO.ClienteDAO;
 import com.formdev.flatlaf.IntelliJTheme;
+import model.Cliente;
 
 /**
  *
@@ -12,7 +14,6 @@ import com.formdev.flatlaf.IntelliJTheme;
  */
 public class Setup extends javax.swing.JFrame {
 
-    
     /**
      * Creates new form Home
      */
@@ -22,7 +23,6 @@ public class Setup extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,9 +70,7 @@ public class Setup extends javax.swing.JFrame {
                 new Setup().setVisible(true);
             }
         });
-        
-        
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
