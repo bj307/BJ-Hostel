@@ -11,7 +11,7 @@ package model;
 public class Cliente extends Pessoa {
 
     private int rg;
-    private int cep;
+    private String cep;
     private String endereco;
     private String complemento;
     private String cidade;
@@ -21,7 +21,7 @@ public class Cliente extends Pessoa {
     public Cliente() {
     }
 
-    public Cliente(int rg, int cep, String endereco, String complemento, String cidade, String estado, String nome, String dataNasc, int cpf, String email, int celular) {
+    public Cliente(int rg, String cep, String endereco, String complemento, String cidade, String estado, String nome, String dataNasc, String cpf, String email, String celular) {
         super(nome, cpf, email, celular);
         this.rg = rg;
         this.cep = cep;
@@ -40,11 +40,11 @@ public class Cliente extends Pessoa {
         this.rg = rg;
     }
 
-    public int getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(int cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 

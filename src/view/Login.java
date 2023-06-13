@@ -4,7 +4,6 @@
  */
 package view;
 
-import com.formdev.flatlaf.IntelliJTheme;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -25,12 +24,18 @@ public class Login extends javax.swing.JPanel {
 
     private boolean validado;
     private int round = 50;
+    Setup setup;
 
     /**
      * Creates new form Login
      */
     public Login() {
+
+    }
+
+    public Login(Setup setup) {
         initComponents();
+        this.setup = setup;
         setOpaque(false);
         setVisible(true);
     }
@@ -161,14 +166,16 @@ public class Login extends javax.swing.JPanel {
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
 
-        if (inputUser.getText().toString().equals("kaio") || inputUser.getText().toString().equals("pedrim")) {
+        if (inputUser.getText().toString().equals("kaio") || inputUser.getText().toString().equals("ariane")) {
             setValidado(true);
         } else {
             setValidado(false);
         }
 
         if (isValidado()) {
-            JOptionPane.showMessageDialog(null, "Você entrou");
+            Dashboard dashboard = new Dashboard();
+            dashboard.setVisible(true);
+            setup.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "Sai fora hacker");
         }

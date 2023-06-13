@@ -12,14 +12,14 @@ public abstract class Pessoa {
     
     private int id;
     private String nome;
-    private int cpf;
+    private String cpf;
     private String email;
-    private int celular;
+    private String celular;
 
     public Pessoa() {
     }
     
-    public Pessoa(String nome, int cpf, String email, int celular) {
+    public Pessoa(String nome, String cpf, String email, String celular) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
@@ -42,11 +42,11 @@ public abstract class Pessoa {
         this.nome = nome;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -58,11 +58,11 @@ public abstract class Pessoa {
         this.email = email;
     }
 
-    public int getCelular() {
+    public String getCelular() {
         return celular;
     }
 
-    public void setCelular(int celular) {
+    public void setCelular(String celular) {
         this.celular = celular;
     }
 

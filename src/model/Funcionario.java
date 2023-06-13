@@ -23,7 +23,7 @@ public class Funcionario extends Pessoa {
     public Funcionario() {
     }
 
-    public Funcionario(int rg, String senha, String cargo, String acesso, int cep, String endereco, String complemento, String cidade, String estado, String nome, int cpf, String email, int celular) {
+    public Funcionario(int rg, String senha, String cargo, String acesso, int cep, String endereco, String complemento, String cidade, String estado, String nome, String cpf, String email, String celular) {
         super(nome, cpf, email, celular);
         this.rg = rg;
         this.senha = senha;
