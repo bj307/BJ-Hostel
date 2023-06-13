@@ -29,10 +29,10 @@ public class ClienteDAO {
             state.setString(1, cliente.getNome());
             state.setString(2, cliente.getDataNasc());
             state.setInt(3, cliente.getRg());
-            state.setInt(4, cliente.getCpf());
+            state.setString(4, cliente.getCpf());
             state.setString(5, cliente.getEmail());
-            state.setInt(6, cliente.getCelular());
-            state.setInt(7, cliente.getCep());
+            state.setString(6, cliente.getCelular());
+            state.setString(7, cliente.getCep());
             state.setString(8, cliente.getEndereco());
             state.setString(9, cliente.getComplemento());
             state.setString(10, cliente.getCidade());

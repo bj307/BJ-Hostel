@@ -17,7 +17,7 @@ public class Dashboard extends javax.swing.JFrame {
     /**
      * Creates new form Dashboard2
      */
-    Login login = new Login();
+
     Home home = new Home();
 
     /**
@@ -28,7 +28,6 @@ public class Dashboard extends javax.swing.JFrame {
         jPanelVaria.setLayout(new CardLayout());
         CardLayout cl = (CardLayout) (jPanelVaria.getLayout());
 
-        jPanelVaria.add(login, "login");
         jPanelVaria.add(home, "home");
         cl.show(jPanelVaria, "home");
         this.setTitle("BJ HOSTEL");
@@ -46,6 +45,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanelVaria = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1500, 900));
@@ -65,23 +65,43 @@ public class Dashboard extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jPanelVaria);
 
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        jLabel1.setText("Cadastrar Cliente");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel1MouseReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(230, 230, 230)
-                .addComponent(jScrollPane1))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(283, 283, 283)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(130, 130, 130)
+                .addGap(60, 60, 60)
+                .addComponent(jLabel1)
+                .addGap(54, 54, 54)
                 .addComponent(jScrollPane1))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseReleased
+        //Cadastrar cliente
+        CadCliente cadCliente = new CadCliente();
+        cadCliente.setVisible(true);
+    }//GEN-LAST:event_jLabel1MouseReleased
 
     /**
      * @param args the command line arguments
@@ -99,6 +119,7 @@ public class Dashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanelVaria;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
