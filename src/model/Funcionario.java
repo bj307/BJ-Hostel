@@ -14,16 +14,16 @@ public class Funcionario extends Pessoa {
     private String senha;
     private String cargo;
     private String acesso;
-    private int cep;
+    private String cep;
     private String endereco;
     private String complemento;
     private String cidade;
     private String estado;
 
-    public Funcionario() {
+    public Funcionario(String kaio, int par, String string, String kaiofuncionariocom, String senha1, String adm, String _92752317, String string1, String rua_São_Paulo, String if_Goiano, String urutaí, String go) {
     }
 
-    public Funcionario(int rg, String senha, String cargo, String acesso, int cep, String endereco, String complemento, String cidade, String estado, String nome, String cpf, String email, String celular) {
+    public Funcionario(int rg, String senha, String cargo, String acesso, String cep, String endereco, String complemento, String cidade, String estado, String nome, String cpf, String email, String celular) {
         super(nome, cpf, email, celular);
         this.rg = rg;
         this.senha = senha;
@@ -34,6 +34,9 @@ public class Funcionario extends Pessoa {
         this.complemento = complemento;
         this.cidade = cidade;
         this.estado = estado;
+    }
+
+    public Funcionario() {
     }
 
     public int getRg() {
@@ -68,11 +71,11 @@ public class Funcionario extends Pessoa {
         this.acesso = acesso;
     }
 
-    public int getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(int cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 

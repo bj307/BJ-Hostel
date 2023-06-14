@@ -15,12 +15,12 @@ import java.sql.SQLException;
 public class ClienteDAO {
     
     private Connection con;
-    
-    public ClienteDAO(){
+
+    public ClienteDAO() {
         this.con = new ConnectBD().getConnection();
     }
     
-    public void cadastrarCliente(Cliente cliente){
+    public void cadastrarCliente(Cliente cliente) {
         try {
             String sql = "insert into tb_clientes (nome, dataNasc, rg, cpf, email, celular, cep, endereco, complemento, cidade, estado) "
                                         + "values (?,?,?,?,?,?,?,?,?,?,?)";

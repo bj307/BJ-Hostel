@@ -4,6 +4,7 @@
  */
 package view;
 
+import DAO.FuncionarioDAO;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -26,9 +27,6 @@ public class Login extends javax.swing.JPanel {
     private int round = 50;
     Setup setup;
 
-    /**
-     * Creates new form Login
-     */
     public Login() {
 
     }
@@ -43,7 +41,6 @@ public class Login extends javax.swing.JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         Paint p = new GradientPaint(0, 0, new Color(61, 61, 61, 255), 0, getHeight(), new Color(94, 94, 94, 255));
-        //Graphics2D g2d = (Graphics2D) g;
 
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -165,19 +162,16 @@ public class Login extends javax.swing.JPanel {
 
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-
-        if (inputUser.getText().toString().equals("kaio") || inputUser.getText().toString().equals("ariane")) {
-            setValidado(true);
-        } else {
-            setValidado(false);
-        }
-
-        if (isValidado()) {
-            Dashboard dashboard = new Dashboard();
-            dashboard.setVisible(true);
+        try {
+            int rg;
+            String senha;
+            rg = Integer.parseInt(inputUser.getText());
+            senha = inputPass.getText();
+            FuncionarioDAO fdao = new FuncionarioDAO();
+            fdao.login(rg, senha);
             setup.setVisible(false);
-        } else {
-            JOptionPane.showMessageDialog(null, "Sai fora hacker");
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
 
