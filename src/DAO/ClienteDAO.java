@@ -3,29 +3,34 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DAO;
+
 import jdbc.ConnectBD;
 import model.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.util.List;
+import java.util.ArrayList;
+
 /**
  *
  * @author kaior
  */
 public class ClienteDAO {
-    
+
     private Connection con;
 
     public ClienteDAO() {
         this.con = new ConnectBD().getConnection();
     }
-    
+
     public void cadastrarCliente(Cliente cliente) {
         try {
             String sql = "insert into tb_clientes (nome, dataNasc, rg, cpf, email, celular, cep, endereco, complemento, cidade, estado) "
-                                        + "values (?,?,?,?,?,?,?,?,?,?,?)";
+                    + "values (?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement state = con.prepareStatement(sql);
-            
+
             state.setString(1, cliente.getNome());
             state.setString(2, cliente.getDataNasc());
             state.setInt(3, cliente.getRg());
@@ -37,10 +42,10 @@ public class ClienteDAO {
             state.setString(9, cliente.getComplemento());
             state.setString(10, cliente.getCidade());
             state.setString(11, cliente.getEstado());
-            
+
             state.execute();
             state.close();
-            
+
             System.out.println("Cliente cadastrado com sucesso!");
             System.out.println("Dados do cliente: ");
             System.out.println(cliente.toString());
@@ -49,13 +54,44 @@ public class ClienteDAO {
             System.out.println(e);
         }
     }
-    
-    public void atualizarCliente(){
-        
+
+    public void atualizarCliente() {
+
     }
-    
-    public void excluirCliente(){
-        
+
+    public void excluirCliente() {
+
     }
-    
+
+    public List<Cliente> listarCliente() {
+        try {
+            List<Cliente> lista = new ArrayList<>();
+
+            String sql = "select * from tb_clientes";
+            PreparedStatement state = con.prepareStatement(sql);
+
+            ResultSet result = state.executeQuery();
+
+            while (result.next()) {
+                Cliente c = new Cliente();
+                c.setId(result.getInt("id"));
+                c.setNome(result.getString("nome"));
+                c.setDataNasc(result.getString("dataNasc"));
+                c.setRg(Integer.parseInt(result.getString("rg")));
+                c.setCpf(result.getString("cpf"));
+                c.setEmail(result.getString("email"));
+                c.setCelular(result.getString("celular"));
+                c.setCep(result.getString("cep"));
+                c.setEndereco(result.getString("endereco"));
+                c.setCidade(result.getString("cidade"));
+                c.setEstado(result.getString("estado"));
+                lista.add(c);
+            }
+            return lista;
+        } catch (SQLException e) {
+            System.out.println("Erro:::: " + e);
+            return null;
+        }
+    }
+
 }

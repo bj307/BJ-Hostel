@@ -17,11 +17,17 @@ import model.Util;
 public class CadEvento extends javax.swing.JFrame {
 
     EventoController eventoController = new EventoController();
+    Eventos evento;
+
+    public CadEvento() {
+    }
+    
     /**
      * Creates new form CadCliente
      */
-    public CadEvento() {
+    public CadEvento(Eventos e) {
         initComponents();
+        this.evento = e;
     }
 
     /**
@@ -160,6 +166,8 @@ public class CadEvento extends javax.swing.JFrame {
         Util util = new Util();
         if (util.VerificaInput(this)) {
             eventoController.cadastrar(this);
+            evento.atualizaLista();
+            util.LimpaTelaFrame(this);
         util.LimpaTelaFrame(this);
         } else {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos.");

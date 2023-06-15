@@ -16,11 +16,17 @@ import model.Util;
 public class CadCliente extends javax.swing.JFrame {
 
     ClienteController clienteController = new ClienteController();
+    Clientes clientes;
+
+    public CadCliente() {
+    }
+    
     /**
      * Creates new form CadCliente
      */
-    public CadCliente() {
+    public CadCliente(Clientes cli) {
         initComponents();
+        this.clientes = cli;
     }
 
     /**
@@ -273,7 +279,8 @@ public class CadCliente extends javax.swing.JFrame {
         Util util = new Util();
         if (util.VerificaInput(this)) {
             clienteController.cadastrar(this);
-        util.LimpaTelaFrame(this);
+            clientes.atualizaTabela();
+            util.LimpaTelaFrame(this);
         } else {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
         }
@@ -283,7 +290,7 @@ public class CadCliente extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         IntelliJTheme.setup(Setup.class.getResourceAsStream("/Gradianto_deep_ocean.theme.json"));
 
         /* Create and display the form */
