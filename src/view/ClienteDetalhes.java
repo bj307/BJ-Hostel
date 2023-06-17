@@ -28,7 +28,7 @@ public class ClienteDetalhes extends javax.swing.JFrame {
     public void lerCliente(Cliente c, Clientes cl) {
         this.cliente = c;
         nome.setText(c.getNome());
-        cpf.setText(cliente.getCpf());
+        inputCpf.setText(cliente.getCpf());
         rg.setText(String.valueOf(cliente.getRg()));
         dataNasc.setText(cliente.getDataNasc());
         email.setText(cliente.getEmail());
@@ -57,7 +57,6 @@ public class ClienteDetalhes extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         email = new javax.swing.JTextField();
         editar = new javax.swing.JButton();
-        cpf = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         rg = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -77,6 +76,7 @@ public class ClienteDetalhes extends javax.swing.JFrame {
         salvarDados = new javax.swing.JButton();
         criarReserva = new javax.swing.JButton();
         boxUf = new javax.swing.JComboBox<>();
+        inputCpf = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -105,9 +105,6 @@ public class ClienteDetalhes extends javax.swing.JFrame {
                 editarMouseReleased(evt);
             }
         });
-
-        cpf.setEditable(false);
-        cpf.setBackground(new java.awt.Color(28, 39, 57));
 
         jLabel4.setText("CPF");
 
@@ -173,6 +170,14 @@ public class ClienteDetalhes extends javax.swing.JFrame {
         boxUf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
         boxUf.setEnabled(false);
 
+        inputCpf.setEditable(false);
+        inputCpf.setBackground(new java.awt.Color(28, 39, 57));
+        try {
+            inputCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -192,8 +197,8 @@ public class ClienteDetalhes extends javax.swing.JFrame {
                                     .addComponent(jLabel2))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4))
+                                    .addComponent(jLabel4)
+                                    .addComponent(inputCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
@@ -258,9 +263,9 @@ public class ClienteDetalhes extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -358,12 +363,12 @@ public class ClienteDetalhes extends javax.swing.JFrame {
     public javax.swing.JTextField cep;
     public javax.swing.JTextField cidade;
     public javax.swing.JTextField complemento;
-    private javax.swing.JTextField cpf;
     private javax.swing.JButton criarReserva;
     private javax.swing.JTextField dataNasc;
     private javax.swing.JButton editar;
     public javax.swing.JTextField email;
     public javax.swing.JTextField endereco;
+    public javax.swing.JFormattedTextField inputCpf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

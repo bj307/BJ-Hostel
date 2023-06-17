@@ -3,12 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/kaior/Desktop/ARQUIVOS%20NETBEANS/BJ%20Hostel/src/view/CadHospedagem.java</file>
+            <file>file:/C:/Users/kaior/Desktop/ARQUIVOS%20NETBEANS/BJ%20Hostel/src/model/Servico.java</file>
             <file>file:/C:/Users/kaior/Desktop/ARQUIVOS%20NETBEANS/BJ%20Hostel/src/DAO/HospedagemDAO.java</file>
-            <file>file:/C:/Users/kaior/Desktop/ARQUIVOS%20NETBEANS/BJ%20Hostel/src/DAO/QuartoDAO.java</file>
-            <file>file:/C:/Users/kaior/Desktop/ARQUIVOS%20NETBEANS/BJ%20Hostel/src/model/Hospedagem.java</file>
-            <file>file:/C:/Users/kaior/Desktop/ARQUIVOS%20NETBEANS/BJ%20Hostel/src/view/CadServicoDisponivel.java</file>
+            <file>file:/C:/Users/kaior/Desktop/ARQUIVOS%20NETBEANS/BJ%20Hostel/src/view/HospedagemDetalhes.java</file>
             <file>file:/C:/Users/kaior/Desktop/ARQUIVOS%20NETBEANS/BJ%20Hostel/src/Controller/HospedagemController.java</file>
+            <file>file:/C:/Users/kaior/Desktop/ARQUIVOS%20NETBEANS/BJ%20Hostel/src/Controller/QuartoController.java</file>
             <file>file:/C:/Users/kaior/Desktop/ARQUIVOS%20NETBEANS/BJ%20Hostel/src/view/CadServico.java</file>
         </group>
     </open-files>

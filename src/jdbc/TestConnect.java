@@ -4,9 +4,6 @@
  */
 package jdbc;
 
-import DAO.ServicoDisponivelDAO;
-import model.ServicoDisponivel;
-
 /**
  *
  * @author kaior

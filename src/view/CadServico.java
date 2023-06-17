@@ -21,6 +21,7 @@ public class CadServico extends javax.swing.JFrame {
 
     ServicoController servicoController = new ServicoController();
     Hospedagem hosp;
+    HospedagemDetalhes hd;
 
     public CadServico() {
     }
@@ -28,9 +29,10 @@ public class CadServico extends javax.swing.JFrame {
     /**
      * Creates new form CadCliente
      */
-    public CadServico(Hospedagem h) {
+    public CadServico(Hospedagem h, HospedagemDetalhes hds) {
         initComponents();
         this.hosp = h;
+        this.hd = hds;
         listaServicosDisp();
     }
 
@@ -186,11 +188,11 @@ public class CadServico extends javax.swing.JFrame {
     }//GEN-LAST:event_inputDataActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        //botão cadastrar cliente
+        //botão cadastrar serviço na hospedagem
         Util util = new Util();
         if (util.VerificaInput(this)) {
             servicoController.cadastrar(this);
-            //clientes.atualizaTabela();
+            hd.atualizaTbServicos();
             util.LimpaTelaFrame(this);
         } else {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos.");

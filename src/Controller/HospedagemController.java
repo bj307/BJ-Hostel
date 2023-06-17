@@ -12,6 +12,7 @@ import model.Quarto;
 import view.CadHospedagem;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  *
@@ -48,4 +49,17 @@ public class HospedagemController {
         hDao.cadastrarHospedagem(h);
     }
 
+    public List<Hospedagem> listarHospedagem() {
+        HospedagemDAO hDao = new HospedagemDAO();
+        List<Hospedagem> lista = hDao.listarHospedagem();
+        return lista;
+    }
+    
+    public Hospedagem buscarId(int i) {
+        int id = i;
+        HospedagemDAO hDao = new HospedagemDAO();
+        Hospedagem h;
+        h = hDao.buscaHospedagemId(id);
+        return h; 
+    }
 }

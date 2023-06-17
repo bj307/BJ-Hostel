@@ -78,4 +78,31 @@ public class HospedagemDAO {
             return null;
         }
     }
+    
+    public Hospedagem buscaHospedagemId(int i) {
+        try {
+            int id = i;
+            Hospedagem h = new Hospedagem();
+            String sql = "select * from tb_hospedagens where id = " + id;
+            PreparedStatement state = con.prepareStatement(sql);
+            ResultSet result = state.executeQuery();
+            
+            if (result.next()) {
+                ClienteDAO cdao = new ClienteDAO();
+                QuartoDAO qdao = new QuartoDAO();
+                h.setId(result.getInt("id"));
+                h.setCliente(cdao.buscarClienteId(result.getInt("id_cliente")));
+                h.setQuarto(qdao.buscarQuartoId(result.getInt("quarto_id")));
+                h.setCheckin(result.getDate("data_checkin"));
+                h.setCheckout(result.getDate("data_checkout"));
+                h.setnHospedes(result.getInt("num_hospedes"));
+                h.setPlaca(result.getString("placa_veiculo"));
+                h.setTotal(result.getDouble("total"));
+            }
+            return h;
+        } catch (SQLException e) {
+            System.out.println("Erro:::: " + e);
+            return null;
+        }
+    }
 }

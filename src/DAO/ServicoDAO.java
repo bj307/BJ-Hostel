@@ -6,6 +6,7 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class ServicoDAO {
     public void cadastrarServico(Servico servico, Hospedagem hospedagem) {
         try {
             String sql = "insert into tb_servicos (servicoDisponivelId, data, quantidade, preco, status) values (?,?,?,?,?)";
-            PreparedStatement state = con.prepareStatement(sql);
+            PreparedStatement state = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             state.setInt(1, servico.getServicoDisponivel().getId());
             state.setString(2, servico.getData());
@@ -37,20 +38,20 @@ public class ServicoDAO {
             state.setDouble(4, servico.getPreco());
             state.setString(5, servico.getStatus());
             state.execute();
-            state.close();
 
             ResultSet generatedKeys = state.getGeneratedKeys();
             int idServico;
             if (generatedKeys.next()) {
                 idServico = generatedKeys.getInt(1);
 
-                String sqlHospedagemServico = "insert into hospedagem_servico (id_servico, id_hospedagem) VALUES (?,?)";
+                String sqlHospedagemServico = "insert into hospedagem_servico (servico_id, hospedagem_id) VALUES (?,?)";
                 PreparedStatement stateHospServ = con.prepareStatement(sqlHospedagemServico);
                 stateHospServ.setInt(1, idServico);
                 stateHospServ.setInt(2, hospedagem.getId());
                 stateHospServ.execute();
             }
-
+            
+            state.close();
             System.out.println("Servico cadastrado com sucesso!");
         } catch (SQLException e) {
             System.out.println("ERRO::::: " + e);
@@ -74,11 +75,12 @@ public class ServicoDAO {
                 s.setServicoDisponivel(sdao.buscarServicoId(result.getInt("servicoDisponivelId")));
                 s.setData(result.getString("data"));
                 s.setQuantidade(result.getInt("quantidade"));
-                s.setPreco(result.getDouble("preco_servico"));
+                s.setPreco(result.getDouble("preco"));
                 s.setStatus(result.getString("status"));
 
                 lista.add(s);
             }
+            System.out.println(lista.toString());
             return lista;
         } catch (SQLException e) {
             System.out.println("Erro:::: " + e);

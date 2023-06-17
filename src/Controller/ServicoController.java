@@ -6,6 +6,7 @@ package Controller;
 
 import DAO.ServicoDAO;
 import DAO.ServicoDisponivelDAO;
+import java.util.List;
 import model.Hospedagem;
 import model.Servico;
 import model.ServicoDisponivel;
@@ -35,4 +36,9 @@ public class ServicoController {
         sDao.cadastrarServico(s, h);
     }
     
+    public List<Servico> listar() {
+        ServicoDAO sDao = new ServicoDAO();
+        List<Servico> lista = sDao.listarServico();
+        return lista;
+    }
 }

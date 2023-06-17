@@ -22,6 +22,7 @@ public class Dashboard extends javax.swing.JFrame {
     Eventos evento = new Eventos();
     Quartos quarto = new Quartos();
     Servicos servico = new Servicos();
+    Hospedagens hospedagem = new Hospedagens();
     
     /**
      * Creates new form Dashboard
@@ -38,6 +39,7 @@ public class Dashboard extends javax.swing.JFrame {
         jPanelVaria.add(evento, "eventos");
         jPanelVaria.add(quarto, "quartos");
         jPanelVaria.add(servico, "servicos");
+        jPanelVaria.add(hospedagem, "hospedagens");
         CardLayout cl = (CardLayout) (jPanelVaria.getLayout());
         cl.show(jPanelVaria, "home");
     }
@@ -105,8 +107,13 @@ public class Dashboard extends javax.swing.JFrame {
         });
 
         reservas.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
-        reservas.setText("Reservas");
+        reservas.setText("Hospedagens");
         reservas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        reservas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                reservasMouseReleased(evt);
+            }
+        });
 
         clientes.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         clientes.setText("Clientes");
@@ -277,6 +284,13 @@ public class Dashboard extends javax.swing.JFrame {
         servico.atualizaTabela();
         //servico.atualizaCard();
     }//GEN-LAST:event_servicosMouseReleased
+
+    private void reservasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reservasMouseReleased
+        //abre pagina de hospedagens
+        CardLayout cl = (CardLayout) (jPanelVaria.getLayout());
+        cl.show(jPanelVaria, "hospedagens");
+        hospedagem.atualizaTabela();
+    }//GEN-LAST:event_reservasMouseReleased
 
     /**
      * @param args the command line arguments
