@@ -18,28 +18,27 @@ CREATE TABLE tb_clientes (
   email varchar(200),
   celular varchar(30),
   cep varchar(100),
-  endereco varchar (255),
-  complemento varchar (200),
-  cidade varchar (100),
-  estado varchar (50)
+  endereco varchar(255),
+  complemento varchar(200),
+  cidade varchar(100),
+  estado varchar(50)
 );
 
 /***** TABELA FUNCIONARIOS *****/
 CREATE TABLE tb_funcionarios (
   id int auto_increment primary key,
   nome varchar(100),
-  rg varchar (30),
-  cpf varchar (20),
+  rg varchar(30),
+  cpf varchar(20),
   email varchar(200),
   senha varchar(10),
   cargo varchar(100),
-  nivel_acesso varchar(50),
   celular varchar(30),
   cep varchar(100),
-  endereco varchar (255),
-  complemento varchar (200),
-  cidade varchar (100),
-  estado varchar (2)
+  endereco varchar(255),
+  complemento varchar(200),
+  cidade varchar(100),
+  estado varchar(2)
 );
 
 /***** TABELA QUARTOS *****/
@@ -48,61 +47,53 @@ CREATE TABLE tb_quartos (
   tipo_quarto varchar(100),
   num_camas int,
   descricao varchar(100),
-  preco decimal (10,2),
-  tamanho decimal (10,2)
+  preco decimal(10,2),
+  tamanho decimal(10,2)
 );
 
-/***** TABELA RESERVAS *****/
-CREATE TABLE tb_reservas (
-  id int auto_increment primary key,
-  cliente_id int,
-  quarto_id int,
-  data_entrada datetime,
-  data_saida datetime,
-  num_hospedes int,
-  valor_reserva decimal (10,2),
-  observacoes text,
-
-  FOREIGN KEY (cliente_id) REFERENCES tb_clientes(id),
-  FOREIGN KEY (quarto_id) REFERENCES tb_quartos(id)
-);
-
-/***** TABELA HOSPEDES *****/
-CREATE TABLE tb_hospedes (
-  id int auto_increment primary key,
-  nome varchar(15)
-);
 
 /***** TABELA HOSPEDAGENS *****/
 CREATE TABLE tb_hospedagens (
   id int auto_increment primary key,
+  id_cliente int,
   quarto_id int,
-  reserva_id int,
   data_checkin datetime,
   data_checkout datetime,
-  hospedes_id int,
+  num_hospedes int,
   placa_veiculo varchar(10),
-  total decimal (10,2),
+  total decimal(10,2),
 
-  FOREIGN KEY (reserva_id) REFERENCES tb_reservas(id),
   FOREIGN KEY (quarto_id) REFERENCES tb_quartos(id),
-  FOREIGN KEY (hospedes_id) REFERENCES tb_hospedes(id)
+  FOREIGN KEY (id_cliente) REFERENCES tb_clientes(id)
+);
+
+/***** TABELA SERVICOS DISPONIVEIS *****/
+CREATE TABLE tb_servicosDisponivel (
+  id int auto_increment primary key,
+  nome varchar(15),
+  preco decimal(10,2)
 );
 
 /***** TABELA SERVICOS *****/
 CREATE TABLE tb_servicos (
   id int auto_increment primary key,
-  nome_servico varchar(15),
-  preco_servico decimal(10,2)
+  servicoDisponivelId int,
+  data varchar(15),
+  quantidade int,
+  preco decimal(10,2),
+  status varchar(10),
+  
+  FOREIGN KEY (servicoDisponivelId) REFERENCES tb_servicosDisponivel(id)
 );
 
 /***** TABELA HOSPEDAGEM & SERVIÇOS *****/
 CREATE TABLE hospedagem_servico (
+  id int auto_increment primary key,
   servico_id int,
   hospedagem_id int,
-  data_solicitacao datetime,
   data_servico datetime,
   qtd int,
+  status varchar(15),
   
   FOREIGN KEY (servico_id) REFERENCES tb_servicos(id),
   FOREIGN KEY (hospedagem_id) REFERENCES tb_hospedagens(id)
@@ -112,7 +103,7 @@ CREATE TABLE hospedagem_servico (
 CREATE TABLE tb_eventos (
   id int auto_increment primary key,
   nome_evento varchar(100),
-  data_evento datetime,
+  data_evento varchar(10),
   local_evento varchar(50),
   capacidade_evento int
 );
@@ -125,4 +116,17 @@ CREATE TABLE hospedagem_evento (
   
   FOREIGN KEY (hospedagem_id) REFERENCES tb_hospedagens(id),
   FOREIGN KEY (evento_id) REFERENCES tb_eventos(id)
+);
+
+/***** TABELA FATURA *****/
+CREATE TABLE fatura (
+  id int auto_increment primary key,
+  id_cliente int,
+  servico_id int,
+  evento_id int,
+  preco_total decimal(10,2),
+ 
+  FOREIGN KEY (evento_id) REFERENCES tb_eventos(id),
+  FOREIGN KEY (servico_id) REFERENCES tb_servicos(id),
+  FOREIGN KEY (id_cliente) REFERENCES tb_clientes(id)
 );

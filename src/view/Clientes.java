@@ -20,6 +20,7 @@ public class Clientes extends javax.swing.JPanel {
      */
     public Clientes() {
         initComponents();
+        tableCliente.getTableHeader().setReorderingAllowed(false);
     }
 
     public void atualizaTabela() {
@@ -91,6 +92,11 @@ public class Clientes extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tableCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tableClienteMouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableCliente);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -143,6 +149,16 @@ public class Clientes extends javax.swing.JPanel {
         CadCliente cadCliente = new CadCliente(this);
         cadCliente.setVisible(true);
     }//GEN-LAST:event_novoClienteMouseReleased
+
+    private void tableClienteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableClienteMouseReleased
+        //clicou nem uma linha da tabela
+        ClienteDetalhes clienteDetalhes = new ClienteDetalhes();
+        clienteDetalhes.setVisible(true);
+        ClienteDAO cDao = new ClienteDAO();
+        Cliente c;
+        c = cDao.buscarClienteCpf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 0).toString());
+        clienteDetalhes.lerCliente(c, this);
+    }//GEN-LAST:event_tableClienteMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

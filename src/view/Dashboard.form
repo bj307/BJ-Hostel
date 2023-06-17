@@ -228,6 +228,9 @@
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="quartosMouseReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="eventos">
           <Properties>
@@ -253,6 +256,9 @@
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="servicosMouseReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="cadFuncionario">
           <Properties>

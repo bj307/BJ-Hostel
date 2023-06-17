@@ -20,6 +20,9 @@ public class Dashboard extends javax.swing.JFrame {
     Home home = new Home();
     Clientes cliente = new Clientes();
     Eventos evento = new Eventos();
+    Quartos quarto = new Quartos();
+    Servicos servico = new Servicos();
+    
     /**
      * Creates new form Dashboard
      */
@@ -33,6 +36,8 @@ public class Dashboard extends javax.swing.JFrame {
         jPanelVaria.add(home, "home");
         jPanelVaria.add(cliente, "clientes");
         jPanelVaria.add(evento, "eventos");
+        jPanelVaria.add(quarto, "quartos");
+        jPanelVaria.add(servico, "servicos");
         CardLayout cl = (CardLayout) (jPanelVaria.getLayout());
         cl.show(jPanelVaria, "home");
     }
@@ -115,6 +120,11 @@ public class Dashboard extends javax.swing.JFrame {
         quartos.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         quartos.setText("Quartos");
         quartos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        quartos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                quartosMouseReleased(evt);
+            }
+        });
 
         eventos.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         eventos.setText("Eventos");
@@ -128,6 +138,11 @@ public class Dashboard extends javax.swing.JFrame {
         servicos.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         servicos.setText("Serviços");
         servicos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        servicos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                servicosMouseReleased(evt);
+            }
+        });
 
         cadFuncionario.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         cadFuncionario.setText("Funcionários");
@@ -247,6 +262,21 @@ public class Dashboard extends javax.swing.JFrame {
         cl.show(jPanelVaria, "eventos");
         evento.atualizaLista();
     }//GEN-LAST:event_eventosMouseReleased
+
+    private void quartosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quartosMouseReleased
+        //abrir pagina de quartos
+        CardLayout cl = (CardLayout) (jPanelVaria.getLayout());
+        cl.show(jPanelVaria, "quartos");
+        quarto.atualizaTabela();
+    }//GEN-LAST:event_quartosMouseReleased
+
+    private void servicosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_servicosMouseReleased
+        //abrir pagina de serviços
+        CardLayout cl = (CardLayout) (jPanelVaria.getLayout());
+        cl.show(jPanelVaria, "servicos");
+        servico.atualizaTabela();
+        //servico.atualizaCard();
+    }//GEN-LAST:event_servicosMouseReleased
 
     /**
      * @param args the command line arguments

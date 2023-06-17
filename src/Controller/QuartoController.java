@@ -5,24 +5,41 @@
 package Controller;
 
 import DAO.QuartoDAO;
+import java.util.List;
 import model.Quarto;
+import view.CadQuarto;
 
 /**
  *
  * @author kaior
  */
 public class QuartoController {
-    
-    public void cadastrar() {
+
+    public void cadastrar(CadQuarto cQuarto) {
         Quarto q = new Quarto();
         QuartoDAO qDao = new QuartoDAO();
-        
-        q.setTipo(tipo);
-        q.setCamas(0);
-        q.setDescricao(descricao);
-        q.setPreco(0);
-        q.setTamanho(0);
-        
+
+        q.setTipo(cQuarto.boxTipo.getSelectedItem().toString());
+        q.setCamas(Integer.parseInt(cQuarto.inputCama.getText()));
+        q.setDescricao(cQuarto.inputDetalhe.getText());
+        q.setPreco(Double.parseDouble(cQuarto.inputPreco.getValue().toString()));
+        q.setTamanho(Integer.parseInt(cQuarto.inputTam.getText()));
+        q.setStatus("desocupado");
+
         qDao.cadastrarQuarto(q);
+    }
+
+    public List<Quarto> listaDesocupado() {
+        QuartoDAO qDao = new QuartoDAO();
+        List<Quarto> lista = qDao.listarQuartoDisponivel();
+        return lista;
+    }
+    
+    public Quarto buscaQuartoNome(String n) {
+        String nome = n;
+        QuartoDAO qdao = new QuartoDAO();
+        Quarto q;
+        q = qdao.buscarQuartoNome(nome);
+        return q;
     }
 }

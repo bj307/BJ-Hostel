@@ -7,6 +7,7 @@ package Controller;
 import DAO.ClienteDAO;
 import model.Cliente;
 import view.CadCliente;
+import view.ClienteDetalhes;
 
 /**
  *
@@ -29,5 +30,23 @@ public class ClienteController {
         c.setCidade(cCli.inputCidade.getText());
         c.setEstado(cCli.boxUf.getSelectedItem().toString());
         cDao.cadastrarCliente(c);
+    }
+    
+    public void atualiza(ClienteDetalhes cCli, Cliente cliente) {
+        ClienteDAO cDao = new ClienteDAO();
+        Cliente c = new Cliente();
+        c.setId(cliente.getId());
+        c.setNome(cCli.nome.getText());
+        c.setDataNasc(cliente.getDataNasc());
+        c.setRg(cliente.getRg());
+        c.setCpf(cliente.getCpf());
+        c.setEmail(cCli.email.getText());
+        c.setCelular(cCli.celular.getText());
+        c.setCep(cCli.cep.getText());
+        c.setEndereco(cCli.endereco.getText());
+        c.setComplemento(cCli.complemento.getText());
+        c.setCidade(cCli.cidade.getText());
+        c.setEstado(cCli.boxUf.getSelectedItem().toString());
+        cDao.atualizarCliente(c);
     }
 }

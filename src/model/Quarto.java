@@ -15,18 +15,20 @@ public class Quarto {
     private int camas;
     private String descricao;
     private double preco;
-    private double tamanho;
+    private int tamanho;
+    private String status;
 
     public Quarto() {
     }
 
-    public Quarto(int id, String tipo, int camas, String descricao, double preco, double tamanho) {
+    public Quarto(int id, String tipo, int camas, String descricao, double preco, int tamanho, String status) {
         this.id = id;
         this.tipo = tipo;
         this.camas = camas;
         this.descricao = descricao;
         this.preco = preco;
         this.tamanho = tamanho;
+        this.status = status;
     }
 
     public int getId() {
@@ -69,13 +71,19 @@ public class Quarto {
         this.preco = preco;
     }
 
-    public double getTamanho() {
+    public int getTamanho() {
         return tamanho;
     }
 
-    public void setTamanho(double tamanho) {
+    public void setTamanho(int tamanho) {
         this.tamanho = tamanho;
     }
     
+    public String getStatus() {
+        return status;
+    }
     
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
