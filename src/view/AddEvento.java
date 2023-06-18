@@ -4,10 +4,8 @@
  */
 package view;
 
-import Controller.ClienteController;
 import Controller.EventoController;
 import Controller.HospedagemController;
-import Controller.ServicoController;
 import com.formdev.flatlaf.IntelliJTheme;
 import java.awt.event.ItemEvent;
 import java.util.List;
@@ -42,6 +40,8 @@ public class AddEvento extends javax.swing.JFrame {
         this.hs = hd;
         listaEventDisp();
         inputCpf.setText(hosp.getCliente().getCpf());
+        this.setTitle("Adicionar evento");
+        this.setLocationRelativeTo(null);
     }
 
     public Hospedagem getHosp() {

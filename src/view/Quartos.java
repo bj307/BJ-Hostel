@@ -5,7 +5,6 @@
 package view;
 
 import Controller.QuartoController;
-import DAO.QuartoDAO;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.Quarto;

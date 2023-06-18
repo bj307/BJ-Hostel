@@ -35,6 +35,8 @@ public class CadHospedagem extends javax.swing.JFrame {
         this.cliente = c;
         listaQuartos();
         inputCpf.setText(cliente.getCpf());
+        this.setTitle("Criar hospedagem");
+        this.setLocationRelativeTo(null);
     }
 
     public Cliente getCliente() {

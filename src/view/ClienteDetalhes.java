@@ -22,7 +22,8 @@ public class ClienteDetalhes extends javax.swing.JFrame {
      */
     public ClienteDetalhes() {
         initComponents();
-        
+        this.setTitle("Detalhes do cliente");
+        this.setLocationRelativeTo(null);
     }
     
     public void lerCliente(Cliente c, Clientes cl) {

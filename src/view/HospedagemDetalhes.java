@@ -5,12 +5,14 @@
 package view;
 
 import Controller.EventoController;
+import Controller.FaturaController;
 import Controller.HospedagemController;
 import Controller.ServicoController;
 import DAO.QuartoDAO;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Evento;
 import model.Hospedagem;
@@ -39,6 +41,8 @@ public class HospedagemDetalhes extends javax.swing.JFrame {
     public HospedagemDetalhes(Hospedagens h) {
         initComponents();
         this.hs = h;
+        this.setTitle("Detalhes de hospedagem");
+        this.setLocationRelativeTo(null);
     }
 
     public void atualizaTbServicos() {
@@ -118,6 +122,12 @@ public class HospedagemDetalhes extends javax.swing.JFrame {
         qDao.atualizarQuarto(h.getQuarto());
         lerHospedagem(h);
         hs.atualizaTabela();
+        
+        new FaturaController().cadastrar(h);
+    }
+    
+    public void verFatura(Hospedagem hp) {
+        
     }
 
     /**
@@ -377,6 +387,15 @@ public class HospedagemDetalhes extends javax.swing.JFrame {
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
         //realiza checkout
         realizaCheckout();
+        int e = JOptionPane.showOptionDialog(null, "Checkout efetuado. Deseja ver a fatura?", "Check-Out", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Ver Fatura", "Sair"}, "Ver Fatura");
+        
+        if (e == JOptionPane.YES_OPTION) {
+            System.out.println("Ver fatura");
+            verFatura(h);
+            this.setVisible(false);
+        } else {
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_btnCheckoutActionPerformed
 
     private void addEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEventoActionPerformed

@@ -4,7 +4,6 @@
  */
 package view.micro;
 
-import Controller.ClienteController;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;

@@ -4,7 +4,6 @@
  */
 package view;
 
-import Controller.ClienteController;
 import Controller.EventoController;
 import com.formdev.flatlaf.IntelliJTheme;
 import javax.swing.JOptionPane;
@@ -28,6 +27,8 @@ public class CadEvento extends javax.swing.JFrame {
     public CadEvento(Eventos e) {
         initComponents();
         this.evento = e;
+        this.setTitle("Cadastrar evento");
+        this.setLocationRelativeTo(null);
     }
 
     /**

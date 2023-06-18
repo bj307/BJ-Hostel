@@ -38,6 +38,8 @@ public class CadServico extends javax.swing.JFrame {
         this.hd = hds;
         this.hs = hd;
         listaServicosDisp();
+        this.setTitle("Adicionar serviço");
+        this.setLocationRelativeTo(null);
     }
 
     public Hospedagem getHosp() {

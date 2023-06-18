@@ -27,7 +27,8 @@ public class CadServicoDisponivel extends javax.swing.JFrame {
     public CadServicoDisponivel(Servicos s) {
         initComponents();
         this.servico = s;
-        
+        this.setTitle("Cadastrar serviço");
+        this.setLocationRelativeTo(null);
     }
 
     /**

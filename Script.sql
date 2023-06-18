@@ -120,13 +120,10 @@ CREATE TABLE hospedagem_evento (
 
 /***** TABELA FATURA *****/
 CREATE TABLE fatura (
-  id int auto_increment primary key,
-  id_cliente int,
-  servico_id int,
-  evento_id int,
-  preco_total decimal(10,2),
- 
-  FOREIGN KEY (evento_id) REFERENCES tb_eventos(id),
-  FOREIGN KEY (servico_id) REFERENCES tb_servicos(id),
-  FOREIGN KEY (id_cliente) REFERENCES tb_clientes(id)
+    id int auto_increment primary key,
+    cliente_id int,
+    hospedagem_id int,
+    total decimal(10,2),
+    FOREIGN KEY (cliente_id) REFERENCES tb_clientes(id),
+    FOREIGN KEY (hospedagem_id) REFERENCES tb_hospedagens(id)
 );

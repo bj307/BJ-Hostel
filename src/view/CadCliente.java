@@ -27,6 +27,8 @@ public class CadCliente extends javax.swing.JFrame {
     public CadCliente(Clientes cli) {
         initComponents();
         this.clientes = cli;
+        this.setTitle("Cadastrar cliente");
+        this.setLocationRelativeTo(null);
     }
 
     /**

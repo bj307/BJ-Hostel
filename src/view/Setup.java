@@ -20,7 +20,7 @@ public class Setup extends javax.swing.JFrame {
      */
     public Setup() {
         initComponents();
-        this.setTitle("BJ HOSTEL");
+        this.setTitle("BJ HOSTEL - Login");
         this.setLocationRelativeTo(null);
         fc.cadastra();
     }

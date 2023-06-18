@@ -27,6 +27,8 @@ public class CadQuarto extends javax.swing.JFrame {
     public CadQuarto(Quartos q) {
         initComponents();
         this.quarto = q;
+        this.setTitle("Cadastrar quarto");
+        this.setLocationRelativeTo(null);
     }
 
     /**

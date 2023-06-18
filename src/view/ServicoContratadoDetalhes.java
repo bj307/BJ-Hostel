@@ -24,6 +24,8 @@ public class ServicoContratadoDetalhes extends javax.swing.JFrame {
      */
     public ServicoContratadoDetalhes() {
         initComponents();
+        this.setTitle("Detalhes de serviço");
+        this.setLocationRelativeTo(null);
     }
 
     public void lerServico(Servico s, Cliente c, Servicos ss) {
