@@ -4,6 +4,7 @@
  */
 package view;
 
+import Controller.ServicoDisponivelController;
 import com.formdev.flatlaf.IntelliJTheme;
 import javax.swing.JOptionPane;
 import model.Util;
@@ -14,7 +15,7 @@ import model.Util;
  */
 public class CadServicoDisponivel extends javax.swing.JFrame {
 
-    
+    ServicoDisponivelController sdc = new ServicoDisponivelController();
     Servicos servico;
 
     public CadServicoDisponivel() {
@@ -69,7 +70,7 @@ public class CadServicoDisponivel extends javax.swing.JFrame {
 
         jLabel7.setText("Preço");
 
-        inputPreco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
+        inputPreco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,7 +125,7 @@ public class CadServicoDisponivel extends javax.swing.JFrame {
         //botão cadastrar cliente
         Util util = new Util();
         if (util.VerificaInput(this)) {
-            //servicoController.cadastrar(this);
+            sdc.cadastrar(this);
             servico.atualizaTabela();
             //servico.atualizaCard();
             util.LimpaTelaFrame(this);

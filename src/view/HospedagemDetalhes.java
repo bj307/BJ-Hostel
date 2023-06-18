@@ -5,7 +5,11 @@
 package view;
 
 import Controller.EventoController;
+import Controller.HospedagemController;
 import Controller.ServicoController;
+import DAO.QuartoDAO;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.Evento;
@@ -20,12 +24,15 @@ public class HospedagemDetalhes extends javax.swing.JFrame {
 
     ServicoController servicoController = new ServicoController();
     EventoController eventoController = new EventoController();
+    HospedagemController hc = new HospedagemController();
+    QuartoDAO qDao = new QuartoDAO();
+    ServicoController sc = new ServicoController();
     Hospedagem h;
     Hospedagens hs;
 
     public HospedagemDetalhes() {
     }
-    
+
     /**
      * Creates new form HospedagemDetalhes
      */
@@ -33,7 +40,7 @@ public class HospedagemDetalhes extends javax.swing.JFrame {
         initComponents();
         this.hs = h;
     }
-    
+
     public void atualizaTbServicos() {
         List<Servico> lista = servicoController.listarSH(h.getId());
         DefaultTableModel servicosTb = (DefaultTableModel) tbServico.getModel();
@@ -46,19 +53,23 @@ public class HospedagemDetalhes extends javax.swing.JFrame {
             });
         }
     }
-    
+
     public boolean verificaCheckout(Hospedagem h) {
         if (h.getCheckout() != null) {
             checkout.setText(h.getCheckout().toString());
             btnCheckout.setVisible(false);
+            addEvento.setEnabled(false);
+            addServ.setEnabled(false);
             return true;
         } else {
             checkout.setText("");
             btnCheckout.setVisible(true);
+            addEvento.setEnabled(true);
+            addServ.setEnabled(true);
             return false;
         }
     }
-    
+
     public void lerHospedagem(Hospedagem hospedagem) {
         this.h = hospedagem;
         nome.setText(h.getCliente().getNome());
@@ -71,7 +82,7 @@ public class HospedagemDetalhes extends javax.swing.JFrame {
         inputPlaca.setText(h.getPlaca());
         atualizaTbEventos();
         atualizaTbServicos();
-        
+
     }
 
     public void atualizaTbEventos() {
@@ -83,8 +94,30 @@ public class HospedagemDetalhes extends javax.swing.JFrame {
                 e.getNomeEvento(),
                 eventoController.buscarParticipantes(e.getId())
             });
-            
+
         }
+    }
+    
+    public void realizaCheckout() {
+        List<Servico> lista = sc.listarSH(h.getId());
+        for (Servico s : lista) {
+            if (s.getStatus().equals("Aberto")) {
+                s.setStatus("Fechado");
+                sc.atualizaServico(s);
+            }
+        }
+        
+        Calendar hoje = Calendar.getInstance();
+        Date dataCheckout = hoje.getTime();
+        h.setCheckout(dataCheckout);
+        hc.atualizar(h);
+        btnCheckout.setVisible(false);
+        addEvento.setEnabled(false);
+        addServ.setEnabled(false);
+        h.getQuarto().setStatus("desocupado");
+        qDao.atualizarQuarto(h.getQuarto());
+        lerHospedagem(h);
+        hs.atualizaTabela();
     }
 
     /**
@@ -343,7 +376,7 @@ public class HospedagemDetalhes extends javax.swing.JFrame {
 
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
         //realiza checkout
-        
+        realizaCheckout();
     }//GEN-LAST:event_btnCheckoutActionPerformed
 
     private void addEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEventoActionPerformed

@@ -7,6 +7,7 @@ package Controller;
 import DAO.ServicoDAO;
 import DAO.ServicoDisponivelDAO;
 import java.util.List;
+import model.Cliente;
 import model.Hospedagem;
 import model.Servico;
 import model.ServicoDisponivel;
@@ -47,5 +48,27 @@ public class ServicoController {
         ServicoDAO sDao = new ServicoDAO();
         List<Servico> lista = sDao.listarServicoH(id);
         return lista;
+    }
+    
+    public Servico buscarServicoId(int i) {
+        int id = i;
+        Servico s;
+        ServicoDAO sDao = new ServicoDAO();
+        s = sDao.buscarId(id);
+        return s;
+    }
+    
+    public Cliente buscarIdhs(int i) {
+        int id = i;
+        Cliente c;
+        ServicoDAO sDao = new ServicoDAO();
+        c = sDao.buscarIdhs(id);
+        return c;
+    }
+    
+    public void atualizaServico(Servico serv) {
+        Servico s = serv;
+        ServicoDAO sDao = new ServicoDAO();
+        sDao.atualizaServico(s);
     }
 }

@@ -242,8 +242,7 @@ public class CadHospedagem extends javax.swing.JFrame {
         Util util = new Util();
         if (util.VerificaInput(this)) {
             hospedagemController.cadastrar(this);
-            //clientes.atualizaTabela();
-            util.LimpaTelaFrame(this);
+            this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
         }

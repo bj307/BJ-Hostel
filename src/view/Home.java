@@ -4,9 +4,16 @@
  */
 package view;
 
+import Controller.ClienteController;
+import Controller.HospedagemController;
+import Controller.QuartoController;
 import Controller.ServicoController;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import model.Cliente;
+import model.Hospedagem;
+import model.Quarto;
 import model.Servico;
 
 /**
@@ -20,6 +27,7 @@ public class Home extends javax.swing.JPanel {
      */
     public Home() {
         initComponents();
+        atualizaCards();
     }
 
     public void atualizaTabela() {
@@ -37,6 +45,32 @@ public class Home extends javax.swing.JPanel {
                 });
             }
         }
+    }
+    
+    public void atualizaCards() {
+        //atualiza card clientes
+        ClienteController cc = new ClienteController();
+        List<Cliente> listac = cc.listar();
+        String cliente = String.valueOf(listac.size());
+        cardClientes1.atualizaCard(cliente);
+        
+        //atualiza card quartos
+        QuartoController qc = new QuartoController();
+        List<Quarto> listaq = qc.listaDesocupado();
+        String quarto = String.valueOf(listaq.size());
+        cardQuartos1.atualizaCard(quarto);
+        
+        //lista reservas
+        HospedagemController hc = new HospedagemController();
+        List<Hospedagem> listahc = hc.listarHospedagem();
+        List<Hospedagem> listah = new ArrayList<>();
+        for (Hospedagem h : listahc) {
+            if (h.getCheckout() == null) {
+                listah.add(h);
+            }
+        }
+        String reserva = String.valueOf(listah.size());
+        cardReservas2.atualizaCard(reserva);
     }
 
     /**
@@ -146,7 +180,7 @@ public class Home extends javax.swing.JPanel {
 
     private void tbServicoAbertoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbServicoAbertoMouseReleased
         //clicou na tabela de serviços abertos
-
+        
     }//GEN-LAST:event_tbServicoAbertoMouseReleased
 
 

@@ -35,6 +35,12 @@ public class QuartoController {
         return lista;
     }
     
+    public List<Quarto> listar() {
+        QuartoDAO qDao = new QuartoDAO();
+        List<Quarto> lista = qDao.listarQuarto();
+        return lista;
+    }
+    
     public Quarto buscaQuartoNome(String n) {
         String nome = n;
         QuartoDAO qdao = new QuartoDAO();

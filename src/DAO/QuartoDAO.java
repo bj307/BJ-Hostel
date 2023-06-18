@@ -131,7 +131,7 @@ public class QuartoDAO {
         try {
             String nome = n;
             Quarto q = new Quarto();
-            String sql = "select * from tb_quartos where tipo_quarto = '" + nome + "' LIMIT 1";
+            String sql = "select * from tb_quartos where tipo_quarto = '" + nome + "' AND status = 'desocupado' LIMIT 1";
             PreparedStatement state = con.prepareStatement(sql);
 
             ResultSet result = state.executeQuery();

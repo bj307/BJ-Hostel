@@ -4,6 +4,7 @@
  */
 package view;
 
+import Controller.QuartoController;
 import DAO.QuartoDAO;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -20,11 +21,13 @@ public class Quartos extends javax.swing.JPanel {
      */
     public Quartos() {
         initComponents();
+        tbQuartos.getTableHeader().setReorderingAllowed(false);
+        atualizaCard();
     }
 
     public void atualizaTabela() {
-        QuartoDAO qDao = new QuartoDAO();
-        List<Quarto> lista = qDao.listarQuarto();
+        QuartoController qc = new QuartoController();
+        List<Quarto> lista = qc.listar();
         DefaultTableModel quartosTb = (DefaultTableModel) tbQuartos.getModel();
         quartosTb.setNumRows(0);
         for (Quarto q : lista) {
@@ -36,7 +39,27 @@ public class Quartos extends javax.swing.JPanel {
             });
         }
     }
-    
+
+    public void atualizaCard() {
+        QuartoController qc = new QuartoController();
+        List<Quarto> lista = qc.listar();
+        int qS = 0;
+        int qD = 0;
+        int qE = 0;
+        for (Quarto q : lista) {
+            if (q.getTipo().equals("Quarto Simples")) {
+                qS = qS + 1;
+            } else if (q.getTipo().equals("Quarto Duplo")) {
+                qD = qD + 1;
+            } else {
+                qE = qE + 1;
+            }
+        }
+        nQuartoSimples.setText(String.valueOf(qS));
+        nQuartoDuplo.setText(String.valueOf(qD));
+        nQuartoEspecial.setText(String.valueOf(qE));
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -165,6 +165,7 @@ public class CadQuarto extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
         }
+        quarto.atualizaCard();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**

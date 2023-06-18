@@ -7,7 +7,6 @@ package view;
 import Controller.HospedagemController;
 import Controller.ServicoController;
 import Controller.ServicoDisponivelController;
-import DAO.ServicoDisponivelDAO;
 import com.formdev.flatlaf.IntelliJTheme;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -199,7 +198,7 @@ public class CadServico extends javax.swing.JFrame {
             servicoController.cadastrar(this);
             hd.atualizaTbServicos();
             hs.atualizaTabela();
-            util.LimpaTelaFrame(this);
+            this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
         }

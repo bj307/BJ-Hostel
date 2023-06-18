@@ -78,12 +78,7 @@ public class CadEvento extends javax.swing.JFrame {
             }
         });
 
-        try {
-            inputCapacidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#######")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        inputCapacidade.setText("1234567");
+        inputCapacidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
         jLabel4.setText("Capacidade");
 

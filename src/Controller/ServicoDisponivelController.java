@@ -7,6 +7,7 @@ package Controller;
 import DAO.ServicoDisponivelDAO;
 import java.util.List;
 import model.ServicoDisponivel;
+import view.CadServicoDisponivel;
 
 /**
  *
@@ -14,8 +15,12 @@ import model.ServicoDisponivel;
  */
 public class ServicoDisponivelController {
     
-    public void cadastrar(){
-        
+    public void cadastrar(CadServicoDisponivel csd){
+        ServicoDisponivel sd = new ServicoDisponivel();
+        ServicoDisponivelDAO sdDao = new ServicoDisponivelDAO();
+        sd.setNome(csd.inputNome.getText());
+        sd.setPreco(Double.parseDouble(csd.inputPreco.getValue().toString()));
+        sdDao.cadastrarServico(sd);
     }
     
     public List<ServicoDisponivel> listar() {

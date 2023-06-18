@@ -5,6 +5,7 @@
 package Controller;
 
 import DAO.ClienteDAO;
+import java.util.List;
 import model.Cliente;
 import view.CadCliente;
 import view.ClienteDetalhes;
@@ -48,5 +49,18 @@ public class ClienteController {
         c.setCidade(cCli.cidade.getText());
         c.setEstado(cCli.boxUf.getSelectedItem().toString());
         cDao.atualizarCliente(c);
+    }
+    
+    public List<Cliente> listar() {
+        ClienteDAO cDao = new ClienteDAO();
+        List<Cliente> lista = cDao.listarCliente();
+        return lista;
+    }
+    
+    public Cliente buscarId(int i) {
+        int id = i;
+        ClienteDAO cdao = new ClienteDAO();
+        Cliente c = cdao.buscarClienteId(id);
+        return c;
     }
 }

@@ -9,6 +9,7 @@ import Controller.ServicoDisponivelController;
 import DAO.ServicoDAO;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import model.Cliente;
 import model.Servico;
 import model.ServicoDisponivel;
 
@@ -23,6 +24,8 @@ public class Servicos extends javax.swing.JPanel {
      */
     public Servicos() {
         initComponents();
+        tbServicos.getTableHeader().setReorderingAllowed(false);
+        servicoOferecido.getTableHeader().setReorderingAllowed(false);
     }
     
     public void atualizaTabela() {
@@ -32,6 +35,7 @@ public class Servicos extends javax.swing.JPanel {
         servicosTb.setNumRows(0);
         for (Servico s : lista) {
             servicosTb.addRow(new Object[]{
+                s.getId(),
                 s.getServicoDisponivel().getNome(),
                 s.getQuantidade(),
                 s.getPreco(),
@@ -65,6 +69,18 @@ public class Servicos extends javax.swing.JPanel {
         }
         nServicosAbertos.setText(String.valueOf(aberto));
         nServicosFechados.setText(String.valueOf(fechado));
+    }
+    
+    public void clicouTabela() {
+        ServicoContratadoDetalhes scd = new ServicoContratadoDetalhes();
+        scd.setVisible(true);
+        ServicoController sc = new ServicoController();
+        Servico s;
+        Cliente c;
+        int id = Integer.parseInt(tbServicos.getValueAt(tbServicos.getSelectedRow(), 0).toString());
+        s = sc.buscarServicoId(id);
+        c = sc.buscarIdhs(id);
+        scd.lerServico(s, c, this);
     }
 
     /**
@@ -237,15 +253,20 @@ public class Servicos extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Serviço", "Quantidade", "Preço", "Status"
+                "ID", "Serviço", "Quantidade", "Preço", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tbServicos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tbServicosMouseReleased(evt);
             }
         });
         jScrollPane2.setViewportView(tbServicos);
@@ -329,6 +350,11 @@ public class Servicos extends javax.swing.JPanel {
         CadServicoDisponivel cadServico = new CadServicoDisponivel(this);
         cadServico.setVisible(true);
     }//GEN-LAST:event_novoQuartoMouseReleased
+
+    private void tbServicosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbServicosMouseReleased
+        //clicou na tabela de serviços pedidos
+        clicouTabela();
+    }//GEN-LAST:event_tbServicosMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

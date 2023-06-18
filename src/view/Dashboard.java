@@ -263,6 +263,7 @@ public class Dashboard extends javax.swing.JFrame {
         CardLayout cl = (CardLayout) (jPanelVaria.getLayout());
         cl.show(jPanelVaria, "home");
         home.atualizaTabela();
+        home.atualizaCards();
     }//GEN-LAST:event_inicioMouseReleased
 
     private void eventosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eventosMouseReleased
@@ -277,6 +278,7 @@ public class Dashboard extends javax.swing.JFrame {
         CardLayout cl = (CardLayout) (jPanelVaria.getLayout());
         cl.show(jPanelVaria, "quartos");
         quarto.atualizaTabela();
+        quarto.atualizaCard();
     }//GEN-LAST:event_quartosMouseReleased
 
     private void servicosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_servicosMouseReleased

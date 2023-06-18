@@ -114,7 +114,11 @@ public class HospedagemDAO {
             state.setInt(1, hospedagem.getCliente().getId());
             state.setInt(2, hospedagem.getQuarto().getId());
             state.setDate(3, new java.sql.Date(hospedagem.getCheckin().getTime()));
-            state.setDate(4, null);
+            if (hospedagem.getCheckout() != null) {
+                state.setDate(4, new java.sql.Date(hospedagem.getCheckout().getTime()));
+            } else {
+                state.setDate(4, null);
+            }
             state.setInt(5, hospedagem.getnHospedes());
             state.setString(6, hospedagem.getPlaca());
             state.setDouble(7, hospedagem.getTotal());

@@ -4,10 +4,12 @@
  */
 package view;
 
+import Controller.ClienteController;
 import Controller.EventoController;
 import Controller.HospedagemController;
 import Controller.ServicoController;
 import com.formdev.flatlaf.IntelliJTheme;
+import java.awt.event.ItemEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.Evento;
@@ -39,6 +41,7 @@ public class AddEvento extends javax.swing.JFrame {
         this.hd = hds;
         this.hs = hd;
         listaEventDisp();
+        inputCpf.setText(hosp.getCliente().getCpf());
     }
 
     public Hospedagem getHosp() {
@@ -48,7 +51,7 @@ public class AddEvento extends javax.swing.JFrame {
     public Evento getEvent() {
         return e;
     }
-
+    
     public Evento buscarEvento(String n) {
         String nome = n;
         EventoController ec = new EventoController();
@@ -105,11 +108,6 @@ public class AddEvento extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         inputData.setText("01012000");
-        inputData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputDataActionPerformed(evt);
-            }
-        });
 
         inputQtd.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
@@ -133,9 +131,9 @@ public class AddEvento extends javax.swing.JFrame {
         });
 
         boxEventos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        boxEventos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boxEventosActionPerformed(evt);
+        boxEventos.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                boxEventosItemStateChanged(evt);
             }
         });
 
@@ -197,10 +195,6 @@ public class AddEvento extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void inputDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputDataActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputDataActionPerformed
-
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         //botão para adicionar evento na hospedagem
         
@@ -208,7 +202,7 @@ public class AddEvento extends javax.swing.JFrame {
         if (util.VerificaInput(this)) {
             e = buscarEvento(boxEventos.getSelectedItem().toString());
             eventoController.addEventoHosp(this);
-            util.LimpaTelaFrame(this);
+            this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
         }
@@ -216,10 +210,12 @@ public class AddEvento extends javax.swing.JFrame {
         hs.atualizaTabela();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
-    private void boxEventosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxEventosActionPerformed
-        //bux de serviços disponiveis
-
-    }//GEN-LAST:event_boxEventosActionPerformed
+    private void boxEventosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_boxEventosItemStateChanged
+        //mudou evento box
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            inputData.setText(String.valueOf(eventoController.buscarPorNome(boxEventos.getSelectedItem().toString()).getData()));
+        }
+    }//GEN-LAST:event_boxEventosItemStateChanged
 
     /**
      * @param args the command line arguments
