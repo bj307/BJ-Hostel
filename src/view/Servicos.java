@@ -4,10 +4,13 @@
  */
 package view;
 
+import Controller.ServicoController;
+import Controller.ServicoDisponivelController;
 import DAO.ServicoDAO;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.Servico;
+import model.ServicoDisponivel;
 
 /**
  *
@@ -23,32 +26,46 @@ public class Servicos extends javax.swing.JPanel {
     }
     
     public void atualizaTabela() {
-        ServicoDAO sDao = new ServicoDAO();
-        List<Servico> lista = sDao.listarServico();
+        ServicoController sc = new ServicoController();
+        List<Servico> lista = sc.listar();
         DefaultTableModel servicosTb = (DefaultTableModel) tbServicos.getModel();
         servicosTb.setNumRows(0);
         for (Servico s : lista) {
             servicosTb.addRow(new Object[]{
-                
+                s.getServicoDisponivel().getNome(),
+                s.getQuantidade(),
+                s.getPreco(),
+                s.getStatus()
+            });
+        }
+        
+        ServicoDisponivelController sdc = new ServicoDisponivelController();
+        List<ServicoDisponivel> listad = sdc.listar();
+        DefaultTableModel servicosdTb = (DefaultTableModel) servicoOferecido.getModel();
+        servicosdTb.setNumRows(0);
+        for (ServicoDisponivel sd : listad) {
+            servicosdTb.addRow(new Object[]{
+                sd.getNome(),
+                sd.getPreco()
             });
         }
     }
 
-//    public void atualizaCard() {
-//        ServicoDAO sDao = new ServicoDAO();
-//        List<Servico> lista = sDao.listarServico();
-//        int aberto = 0;
-//        int fechado = 0;
-//        for (Servico s : lista) {
-//            if (s.getStatus().equals("Aberto")) {
-//                aberto = aberto + 1;
-//            } else if (s.getStatus().equals("Fechado")) {
-//                fechado = fechado + 1;
-//            }
-//        }
-//        nServicosAbertos.setText(String.valueOf(aberto));
-//        nServicosFechados.setText(String.valueOf(fechado));
-//    }
+    public void atualizaCard() {
+        ServicoDAO sDao = new ServicoDAO();
+        List<Servico> lista = sDao.listarServico();
+        int aberto = 0;
+        int fechado = 0;
+        for (Servico s : lista) {
+            if (s.getStatus().equals("Aberto")) {
+                aberto = aberto + 1;
+            } else if (s.getStatus().equals("Fechado")) {
+                fechado = fechado + 1;
+            }
+        }
+        nServicosAbertos.setText(String.valueOf(aberto));
+        nServicosFechados.setText(String.valueOf(fechado));
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -73,9 +90,11 @@ public class Servicos extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         nServicosFechados = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbServH = new javax.swing.JTable();
+        servicoOferecido = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbServicos = new javax.swing.JTable();
+        svOferecido = new javax.swing.JLabel();
+        svOferecido1 = new javax.swing.JLabel();
 
         jTextField1.setText("jTextField1");
 
@@ -195,25 +214,7 @@ public class Servicos extends javax.swing.JPanel {
                 .addComponent(nServicosFechados))
         );
 
-        tbServH.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Serviço", "Cliente", "Data", "Quantidade", "Preço", "Status"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tbServH);
-
-        tbServicos.setModel(new javax.swing.table.DefaultTableModel(
+        servicoOferecido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -229,7 +230,33 @@ public class Servicos extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jScrollPane1.setViewportView(servicoOferecido);
+
+        tbServicos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Serviço", "Quantidade", "Preço", "Status"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tbServicos);
+
+        svOferecido.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
+        svOferecido.setText("Tabela de serviços oferecidos");
+        svOferecido.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        svOferecido1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
+        svOferecido1.setText("Serviços pedidos");
+        svOferecido1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -252,7 +279,12 @@ public class Servicos extends javax.swing.JPanel {
                                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jSeparator1)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(73, 73, 73))))
+                        .addGap(73, 73, 73))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(svOferecido1)
+                            .addComponent(svOferecido))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,10 +299,14 @@ public class Servicos extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addComponent(svOferecido)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
+                .addComponent(svOferecido1)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                 .addGap(30, 30, 30))
         );
 
@@ -311,7 +347,9 @@ public class Servicos extends javax.swing.JPanel {
     private javax.swing.JLabel nServicosAbertos;
     private javax.swing.JLabel nServicosFechados;
     private javax.swing.JLabel novoQuarto;
-    private javax.swing.JTable tbServH;
+    private javax.swing.JTable servicoOferecido;
+    private javax.swing.JLabel svOferecido;
+    private javax.swing.JLabel svOferecido1;
     private javax.swing.JTable tbServicos;
     // End of variables declaration//GEN-END:variables
 }

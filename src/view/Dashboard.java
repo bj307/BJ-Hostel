@@ -42,6 +42,7 @@ public class Dashboard extends javax.swing.JFrame {
         jPanelVaria.add(hospedagem, "hospedagens");
         CardLayout cl = (CardLayout) (jPanelVaria.getLayout());
         cl.show(jPanelVaria, "home");
+        home.atualizaTabela();
     }
 
     /**
@@ -261,6 +262,7 @@ public class Dashboard extends javax.swing.JFrame {
         //abrir pagina de inicio
         CardLayout cl = (CardLayout) (jPanelVaria.getLayout());
         cl.show(jPanelVaria, "home");
+        home.atualizaTabela();
     }//GEN-LAST:event_inicioMouseReleased
 
     private void eventosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eventosMouseReleased
@@ -282,7 +284,7 @@ public class Dashboard extends javax.swing.JFrame {
         CardLayout cl = (CardLayout) (jPanelVaria.getLayout());
         cl.show(jPanelVaria, "servicos");
         servico.atualizaTabela();
-        //servico.atualizaCard();
+        servico.atualizaCard();
     }//GEN-LAST:event_servicosMouseReleased
 
     private void reservasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reservasMouseReleased

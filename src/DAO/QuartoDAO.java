@@ -131,7 +131,7 @@ public class QuartoDAO {
         try {
             String nome = n;
             Quarto q = new Quarto();
-            String sql = "select * from tb_quartos where tipo_quarto = '" + nome + "'";
+            String sql = "select * from tb_quartos where tipo_quarto = '" + nome + "' LIMIT 1";
             PreparedStatement state = con.prepareStatement(sql);
 
             ResultSet result = state.executeQuery();
@@ -149,6 +149,27 @@ public class QuartoDAO {
         } catch (SQLException e) {
             System.out.println("Erro:::: " + e);
             return null;
+        }
+    }
+    
+    public void atualizarQuarto(Quarto quarto) {
+        try {
+            String sql = "update tb_quartos set tipo_quarto=?, num_camas=?, descricao=?, preco=?, tamanho=?, status=? where id=?";
+            PreparedStatement state = con.prepareStatement(sql);
+            
+            state.setString(1, quarto.getTipo());
+            state.setInt(2, quarto.getCamas());
+            state.setString(3, quarto.getDescricao());
+            state.setDouble(4, quarto.getPreco());
+            state.setInt(5, quarto.getTamanho());
+            state.setString(6, quarto.getStatus());
+            state.setInt(7, quarto.getId());
+
+            state.execute();
+            state.close();
+
+            System.out.println("Quarto atualizado com sucesso!" + quarto.getStatus());
+        } catch (Exception e) {
         }
     }
 }

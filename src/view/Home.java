@@ -4,18 +4,39 @@
  */
 package view;
 
+import Controller.ServicoController;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.Servico;
+
 /**
  *
  * @author kaior
  */
 public class Home extends javax.swing.JPanel {
-        
-    /**
-    * Creates new form Home
-    */
 
+    /**
+     * Creates new form Home
+     */
     public Home() {
         initComponents();
+    }
+
+    public void atualizaTabela() {
+        ServicoController sc = new ServicoController();
+        List<Servico> lista = sc.listar();
+        DefaultTableModel servicosTb = (DefaultTableModel) tbServicoAberto.getModel();
+        servicosTb.setNumRows(0);
+        for (Servico s : lista) {
+            if (s.getStatus().equals("Aberto")) {
+                servicosTb.addRow(new Object[]{
+                    s.getServicoDisponivel().getNome(),
+                    s.getQuantidade(),
+                    s.getData(),
+                    s.getPreco()
+                });
+            }
+        }
     }
 
     /**
@@ -35,7 +56,7 @@ public class Home extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbServicoAberto = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setAutoscrolls(true);
@@ -47,8 +68,8 @@ public class Home extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Montserrat SemiBold", 0, 48)); // NOI18N
         jLabel2.setText("Serviços");
 
-        jTable1.setFont(new java.awt.Font("Montserrat Medium", 0, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbServicoAberto.setFont(new java.awt.Font("Montserrat Medium", 0, 14)); // NOI18N
+        tbServicoAberto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -56,7 +77,7 @@ public class Home extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Cliente", "Quarto", "Data", "Hora"
+                "Serviço", "Quantidade", "Data", "Preço"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -67,7 +88,12 @@ public class Home extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        tbServicoAberto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tbServicoAbertoMouseReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbServicoAberto);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -118,6 +144,11 @@ public class Home extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tbServicoAbertoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbServicoAbertoMouseReleased
+        //clicou na tabela de serviços abertos
+
+    }//GEN-LAST:event_tbServicoAbertoMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private view.micro.CardClientes cardClientes1;
@@ -128,6 +159,6 @@ public class Home extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tbServicoAberto;
     // End of variables declaration//GEN-END:variables
 }

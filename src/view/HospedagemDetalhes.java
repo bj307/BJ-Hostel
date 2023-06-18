@@ -4,9 +4,11 @@
  */
 package view;
 
+import Controller.EventoController;
 import Controller.ServicoController;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import model.Evento;
 import model.Hospedagem;
 import model.Servico;
 
@@ -17,17 +19,23 @@ import model.Servico;
 public class HospedagemDetalhes extends javax.swing.JFrame {
 
     ServicoController servicoController = new ServicoController();
+    EventoController eventoController = new EventoController();
     Hospedagem h;
+    Hospedagens hs;
+
+    public HospedagemDetalhes() {
+    }
     
     /**
      * Creates new form HospedagemDetalhes
      */
-    public HospedagemDetalhes() {
+    public HospedagemDetalhes(Hospedagens h) {
         initComponents();
+        this.hs = h;
     }
     
     public void atualizaTbServicos() {
-        List<Servico> lista = servicoController.listar();
+        List<Servico> lista = servicoController.listarSH(h.getId());
         DefaultTableModel servicosTb = (DefaultTableModel) tbServico.getModel();
         servicosTb.setNumRows(0);
         for (Servico s : lista) {
@@ -63,10 +71,20 @@ public class HospedagemDetalhes extends javax.swing.JFrame {
         inputPlaca.setText(h.getPlaca());
         atualizaTbEventos();
         atualizaTbServicos();
+        
     }
 
     public void atualizaTbEventos() {
-        
+        List<Evento> lista = eventoController.listarSH(h.getId());
+        DefaultTableModel eventosTb = (DefaultTableModel) tbEvento.getModel();
+        eventosTb.setNumRows(0);
+        for (Evento e : lista) {
+            eventosTb.addRow(new Object[]{
+                e.getNomeEvento(),
+                eventoController.buscarParticipantes(e.getId())
+            });
+            
+        }
     }
 
     /**
@@ -330,13 +348,14 @@ public class HospedagemDetalhes extends javax.swing.JFrame {
 
     private void addEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEventoActionPerformed
         //abre tela adicionar evento
+        AddEvento addEvento = new AddEvento(h, this, hs);
+        addEvento.setVisible(true);
     }//GEN-LAST:event_addEventoActionPerformed
 
     private void addServActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addServActionPerformed
         //abre tela adicionar serviço
-        CadServico cadServico = new CadServico(h, this);
+        CadServico cadServico = new CadServico(h, this, hs);
         cadServico.setVisible(true);
-        atualizaTbServicos();
     }//GEN-LAST:event_addServActionPerformed
 
     /**

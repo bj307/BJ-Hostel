@@ -105,4 +105,26 @@ public class HospedagemDAO {
             return null;
         }
     }
+    
+    public void atualizarHospedagem(Hospedagem hospedagem) {
+        try {
+            String sql = "update tb_hospedagens set id_cliente=?, quarto_id=?, data_checkin=?, data_checkout=?, num_hospedes=?, placa_veiculo=?, total=? where id =?";
+            PreparedStatement state = con.prepareStatement(sql);
+            
+            state.setInt(1, hospedagem.getCliente().getId());
+            state.setInt(2, hospedagem.getQuarto().getId());
+            state.setDate(3, new java.sql.Date(hospedagem.getCheckin().getTime()));
+            state.setDate(4, null);
+            state.setInt(5, hospedagem.getnHospedes());
+            state.setString(6, hospedagem.getPlaca());
+            state.setDouble(7, hospedagem.getTotal());
+            state.setInt(8, hospedagem.getId());
+            
+            state.execute();
+            state.close();
+            System.out.println("Hospedagem atualizada com sucesso!");
+        } catch (SQLException e) {
+            System.out.println("Erro:::: " + e);
+        }
+    }
 }

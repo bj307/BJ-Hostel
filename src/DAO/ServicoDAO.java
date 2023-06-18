@@ -29,6 +29,10 @@ public class ServicoDAO {
 
     public void cadastrarServico(Servico servico, Hospedagem hospedagem) {
         try {
+            
+            HospedagemDAO hd = new HospedagemDAO();
+            hd.atualizarHospedagem(hospedagem);
+            
             String sql = "insert into tb_servicos (servicoDisponivelId, data, quantidade, preco, status) values (?,?,?,?,?)";
             PreparedStatement state = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -38,7 +42,7 @@ public class ServicoDAO {
             state.setDouble(4, servico.getPreco());
             state.setString(5, servico.getStatus());
             state.execute();
-
+            
             ResultSet generatedKeys = state.getGeneratedKeys();
             int idServico;
             if (generatedKeys.next()) {
@@ -50,7 +54,6 @@ public class ServicoDAO {
                 stateHospServ.setInt(2, hospedagem.getId());
                 stateHospServ.execute();
             }
-            
             state.close();
             System.out.println("Servico cadastrado com sucesso!");
         } catch (SQLException e) {
@@ -70,7 +73,7 @@ public class ServicoDAO {
             while (result.next()) {
                 Servico s = new Servico();
                 ServicoDisponivelDAO sdao = new ServicoDisponivelDAO();
-                
+
                 s.setId(result.getInt("id"));
                 s.setServicoDisponivel(sdao.buscarServicoId(result.getInt("servicoDisponivelId")));
                 s.setData(result.getString("data"));
@@ -80,7 +83,42 @@ public class ServicoDAO {
 
                 lista.add(s);
             }
-            System.out.println(lista.toString());
+            return lista;
+        } catch (SQLException e) {
+            System.out.println("Erro:::: " + e);
+            return null;
+        }
+    }
+
+    public List<Servico> listarServicoH(int i) {
+        try {
+            int id = i;
+            List<Servico> lista = new ArrayList<>();
+
+            String sql = "select * from hospedagem_servico where hospedagem_id = " + id;
+            PreparedStatement state = con.prepareStatement(sql);
+
+            ResultSet result = state.executeQuery();
+
+            while (result.next()) {
+
+                String sql2 = "select * from tb_servicos where id = " + result.getInt("servico_id");
+                PreparedStatement state2 = con.prepareStatement(sql2);
+                ResultSet result2 = state2.executeQuery();
+                while (result2.next()) {
+                    Servico s = new Servico();
+                    ServicoDisponivelDAO sdao = new ServicoDisponivelDAO();
+
+                    s.setId(result2.getInt("id"));
+                    s.setServicoDisponivel(sdao.buscarServicoId(result2.getInt("servicoDisponivelId")));
+                    s.setData(result2.getString("data"));
+                    s.setQuantidade(result2.getInt("quantidade"));
+                    s.setPreco(result2.getDouble("preco"));
+                    s.setStatus(result2.getString("status"));
+
+                    lista.add(s);
+                }
+            }
             return lista;
         } catch (SQLException e) {
             System.out.println("Erro:::: " + e);

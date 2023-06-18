@@ -42,4 +42,10 @@ public class QuartoController {
         q = qdao.buscarQuartoNome(nome);
         return q;
     }
+    
+    public void atualizar(Quarto qt){
+        Quarto q = qt;
+        QuartoDAO qDao = new QuartoDAO();
+        qDao.atualizarQuarto(q);
+    }
 }

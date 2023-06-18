@@ -4,53 +4,64 @@
  */
 package view;
 
+import Controller.EventoController;
 import Controller.HospedagemController;
 import Controller.ServicoController;
-import Controller.ServicoDisponivelController;
-import DAO.ServicoDisponivelDAO;
 import com.formdev.flatlaf.IntelliJTheme;
 import java.util.List;
 import javax.swing.JOptionPane;
+import model.Evento;
 import model.Hospedagem;
-import model.ServicoDisponivel;
 import model.Util;
 
 /**
  *
  * @author 2020101202010138
  */
-public class CadServico extends javax.swing.JFrame {
+public class AddEvento extends javax.swing.JFrame {
 
-    ServicoController servicoController = new ServicoController();
+    EventoController eventoController = new EventoController();
     HospedagemController hospedagemController = new HospedagemController();
     Hospedagem hosp;
     HospedagemDetalhes hd;
     Hospedagens hs;
+    Evento e;
 
-    public CadServico() {
+    public AddEvento() {
     }
-    
+
     /**
      * Creates new form CadCliente
      */
-    public CadServico(Hospedagem h, HospedagemDetalhes hds, Hospedagens hd) {
+    public AddEvento(Hospedagem h, HospedagemDetalhes hds, Hospedagens hd) {
         initComponents();
         this.hosp = h;
         this.hd = hds;
         this.hs = hd;
-        listaServicosDisp();
+        listaEventDisp();
     }
 
     public Hospedagem getHosp() {
         return hosp;
     }
-    
-    public void listaServicosDisp() {
-        ServicoDisponivelController sdc = new ServicoDisponivelController();
-        List<ServicoDisponivel> lista = sdc.listar();
-        boxServicos.removeAllItems();
-        for (ServicoDisponivel sd : lista) {
-            boxServicos.addItem(sd.getNome());
+
+    public Evento getEvent() {
+        return e;
+    }
+
+    public Evento buscarEvento(String n) {
+        String nome = n;
+        EventoController ec = new EventoController();
+        Evento e = ec.buscarPorNome(nome);
+        return e;
+    }
+
+    public void listaEventDisp() {
+        EventoController ed = new EventoController();
+        List<Evento> lista = ed.listar();
+        boxEventos.removeAllItems();
+        for (Evento e : lista) {
+            boxEventos.addItem(e.getNomeEvento());
         }
     }
 
@@ -73,18 +84,18 @@ public class CadServico extends javax.swing.JFrame {
         inputCpf = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
         btnCadastrar = new javax.swing.JButton();
-        boxServicos = new javax.swing.JComboBox<>();
+        boxEventos = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Pedido de serviço");
+        jLabel1.setText("Adicionar evento");
 
         jSeparator1.setForeground(new java.awt.Color(0, 102, 102));
 
-        jLabel2.setText("Serviço");
+        jLabel2.setText("Eventos");
 
         jLabel3.setText("Data ");
 
@@ -102,29 +113,29 @@ public class CadServico extends javax.swing.JFrame {
 
         inputQtd.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
-        jLabel4.setText("Quantidade");
+        jLabel4.setText("Nº de participantes");
 
         try {
             inputCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        inputCpf.setText("70060050040");
+        inputCpf.setText("");
 
         jLabel7.setText("CPF do Cliente");
 
         btnCadastrar.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
-        btnCadastrar.setText("CADASTRAR");
+        btnCadastrar.setText("ADICIONAR");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
             }
         });
 
-        boxServicos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        boxServicos.addActionListener(new java.awt.event.ActionListener() {
+        boxEventos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        boxEventos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boxServicosActionPerformed(evt);
+                boxEventosActionPerformed(evt);
             }
         });
 
@@ -137,12 +148,10 @@ public class CadServico extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(boxServicos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(boxEventos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,7 +178,7 @@ public class CadServico extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(boxServicos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(boxEventos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -193,22 +202,24 @@ public class CadServico extends javax.swing.JFrame {
     }//GEN-LAST:event_inputDataActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        //botão cadastrar serviço na hospedagem
+        //botão para adicionar evento na hospedagem
+        
         Util util = new Util();
         if (util.VerificaInput(this)) {
-            servicoController.cadastrar(this);
-            hd.atualizaTbServicos();
-            hs.atualizaTabela();
+            e = buscarEvento(boxEventos.getSelectedItem().toString());
+            eventoController.addEventoHosp(this);
             util.LimpaTelaFrame(this);
         } else {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
         }
+        hd.atualizaTbEventos();
+        hs.atualizaTabela();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
-    private void boxServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxServicosActionPerformed
+    private void boxEventosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxEventosActionPerformed
         //bux de serviços disponiveis
-        
-    }//GEN-LAST:event_boxServicosActionPerformed
+
+    }//GEN-LAST:event_boxEventosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,13 +231,13 @@ public class CadServico extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadServico().setVisible(true);
+                new AddEvento().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JComboBox<String> boxServicos;
+    public javax.swing.JComboBox<String> boxEventos;
     private javax.swing.JButton btnCadastrar;
     public javax.swing.JFormattedTextField inputCpf;
     public javax.swing.JFormattedTextField inputData;

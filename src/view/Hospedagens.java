@@ -133,7 +133,7 @@ public class Hospedagens extends javax.swing.JPanel {
 
     private void tableHospedagensMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableHospedagensMouseReleased
         //clicou nem uma linha da tabela
-        HospedagemDetalhes hospedagemDetalhes = new HospedagemDetalhes();
+        HospedagemDetalhes hospedagemDetalhes = new HospedagemDetalhes(this);
         hospedagemDetalhes.setVisible(true);
         Hospedagem h;
         h = hospedagemController.buscarId(Integer.parseInt(tableHospedagens.getValueAt(tableHospedagens.getSelectedRow(), 0).toString()));

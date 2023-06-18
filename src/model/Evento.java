@@ -12,6 +12,7 @@ import java.time.LocalDate;
  */
 public class Evento {
     
+    private int id;
     private String nomeEvento;
     private String data;
     private String localEvento;
@@ -20,11 +21,20 @@ public class Evento {
     public Evento() {
     }
 
-    public Evento(String nomeEvento, String data, String localEvento, int capacidadeEvento) {
+    public Evento(int id, String nomeEvento, String data, String localEvento, int capacidadeEvento) {
+        this.id = id;
         this.nomeEvento = nomeEvento;
         this.data = data;
         this.localEvento = localEvento;
         this.capacidadeEvento = capacidadeEvento;
+    }
+    
+    public int getId() {
+        return id;
+    }
+    
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNomeEvento() {

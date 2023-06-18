@@ -23,11 +23,15 @@ public class HospedagemController {
     public void cadastrar(CadHospedagem cHospedagem) {
         Hospedagem h = new Hospedagem();
         HospedagemDAO hDao = new HospedagemDAO();
-        
+
         Quarto q = new Quarto();
         QuartoDAO qDao = new QuartoDAO();
         q = qDao.buscarQuartoNome(cHospedagem.boxQuartos.getSelectedItem().toString());
-        
+
+        QuartoController qc = new QuartoController();
+        q.setStatus("ocupado");
+        qc.atualizar(q);
+
         String d = cHospedagem.inputCheckin.getText();
         SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
         Date data = new Date();
@@ -37,7 +41,7 @@ public class HospedagemController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        
+
         h.setQuarto(q);
         h.setCheckin(data);
         h.setCheckout(null);
@@ -45,7 +49,7 @@ public class HospedagemController {
         h.setPlaca(cHospedagem.inputPlaca.getText());
         h.setTotal(Double.parseDouble(cHospedagem.inputValor.getText()));
         h.setCliente(cHospedagem.getCliente());
-        
+
         hDao.cadastrarHospedagem(h);
     }
 
@@ -54,12 +58,18 @@ public class HospedagemController {
         List<Hospedagem> lista = hDao.listarHospedagem();
         return lista;
     }
-    
+
     public Hospedagem buscarId(int i) {
         int id = i;
         HospedagemDAO hDao = new HospedagemDAO();
         Hospedagem h;
         h = hDao.buscaHospedagemId(id);
-        return h; 
+        return h;
+    }
+
+    public void atualizar(Hospedagem hp) {
+        Hospedagem h = hp;
+        HospedagemDAO hDao = new HospedagemDAO();
+        hDao.atualizarHospedagem(h);
     }
 }

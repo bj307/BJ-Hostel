@@ -32,13 +32,20 @@ public class ServicoController {
         s.setData(cServico.inputData.getText());
         s.setStatus("Aberto");
         s.setPreco(sd.getPreco() * qtd);
-        
+        h.setTotal(h.getTotal() + s.getPreco());
         sDao.cadastrarServico(s, h);
     }
     
     public List<Servico> listar() {
         ServicoDAO sDao = new ServicoDAO();
         List<Servico> lista = sDao.listarServico();
+        return lista;
+    }
+    
+    public List<Servico> listarSH(int i) {
+        int id = i;
+        ServicoDAO sDao = new ServicoDAO();
+        List<Servico> lista = sDao.listarServicoH(id);
         return lista;
     }
 }
