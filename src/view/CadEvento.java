@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import model.Util;
 
 /**
+ * Classe responsável por controlar o cadastro de eventos.
  *
  * @author 2020101202010138
  */
@@ -18,11 +19,16 @@ public class CadEvento extends javax.swing.JFrame {
     EventoController eventoController = new EventoController();
     Eventos evento;
 
+    /**
+     * Construtor vazio.
+     */
     public CadEvento() {
     }
-    
+
     /**
-     * Creates new form CadCliente
+     * Construtor que recebe a lista de eventos existentes
+     *
+     * @param e tela com lista de eventos
      */
     public CadEvento(Eventos e) {
         initComponents();
@@ -161,10 +167,10 @@ public class CadEvento extends javax.swing.JFrame {
         //botão cadastrar cliente
         Util util = new Util();
         if (util.VerificaInput(this)) {
-            eventoController.cadastrar(this);
+            eventoController.cadastrarEvento(this);
             evento.atualizaLista();
-            util.LimpaTelaFrame(this);
-        util.LimpaTelaFrame(this);
+            JOptionPane.showMessageDialog(null, "Evento cadastrado com sucesso.");
+            this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
         }
@@ -174,7 +180,7 @@ public class CadEvento extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         IntelliJTheme.setup(Setup.class.getResourceAsStream("/Gradianto_deep_ocean.theme.json"));
 
         /* Create and display the form */

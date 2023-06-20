@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import model.Util;
 
 /**
+ * Classe responsável por controlar o cadastro de serviços disponíveis.
  *
  * @author 2020101202010138
  */
@@ -18,11 +19,17 @@ public class CadServicoDisponivel extends javax.swing.JFrame {
     ServicoDisponivelController sdc = new ServicoDisponivelController();
     Servicos servico;
 
+    /**
+     * Construtor vazio.
+     */
     public CadServicoDisponivel() {
     }
-    
+
     /**
-     * Creates new form CadCliente
+     * Construtor que recebe a tela com a lista dos serviços existentes e
+     * serviços contratados.
+     *
+     * @param s : os serviços existentes
      */
     public CadServicoDisponivel(Servicos s) {
         initComponents();
@@ -128,9 +135,9 @@ public class CadServicoDisponivel extends javax.swing.JFrame {
         if (util.VerificaInput(this)) {
             sdc.cadastrar(this);
             servico.atualizaTabela();
-            //servico.atualizaCard();
-            util.LimpaTelaFrame(this);
-        util.LimpaTelaFrame(this);
+            servico.atualizaCard();
+            JOptionPane.showMessageDialog(null, "Serviço criado com sucesso.");
+            this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
         }
@@ -140,7 +147,7 @@ public class CadServicoDisponivel extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         IntelliJTheme.setup(Setup.class.getResourceAsStream("/Gradianto_deep_ocean.theme.json"));
 
         /* Create and display the form */

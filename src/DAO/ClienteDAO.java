@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -46,9 +47,7 @@ public class ClienteDAO {
             state.execute();
             state.close();
 
-            System.out.println("Cliente cadastrado com sucesso!");
-            System.out.println("Dados do cliente: ");
-            System.out.println(cliente.toString());
+            JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso.");
         } catch (SQLException e) {
             System.out.println("Erro ao cadastrar cliente");
             System.out.println(e);
@@ -77,9 +76,7 @@ public class ClienteDAO {
             state.execute();
             state.close();
 
-            System.out.println("Cliente alterado com sucesso!");
-            System.out.println("Dados do cliente: ");
-            System.out.println(cliente.toString());
+            JOptionPane.showMessageDialog(null, "Dados atualizados.");
         } catch (SQLException e) {
             System.out.println("Erro ao cadastrar cliente");
             System.out.println(e);

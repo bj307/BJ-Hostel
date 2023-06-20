@@ -4,7 +4,7 @@
  */
 package view;
 
-import DAO.FuncionarioDAO;
+import Controller.FuncionarioController;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -15,27 +15,53 @@ import java.awt.Shape;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
-import javax.swing.JOptionPane;
 
 /**
+ * A classe Login é responsável por permitir que um funcionário faça login no
+ * sistema fornecendo seu RG e senha.
  *
  * @author kaior
  */
 public class Login extends javax.swing.JPanel {
 
-    private boolean validado;
     private int round = 50;
     Setup setup;
 
+    /**
+     * Construtor da classe Login.
+     */
     public Login() {
-
     }
 
+    /**
+     * Construtor da classe Login que recebe uma instância de Setup. Cria a
+     * interface gráfica da tela de login e configura as propriedades iniciais.
+     *
+     * @param setup : setup é a tela inicial que gerencia o login.
+     */
     public Login(Setup setup) {
         initComponents();
         this.setup = setup;
         setOpaque(false);
         setVisible(true);
+    }
+
+    /**
+     * Tenta realizar o login de um funcionário com base nos dados fornecidos.
+     *
+     */
+    public void realizaLogin() {
+        try {
+            int rg;
+            String senha;
+            rg = Integer.parseInt(inputUser.getText());
+            senha = inputPass.getText();
+            FuncionarioController fc = new FuncionarioController();
+            fc.login(rg, senha);
+            setup.setVisible(false);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override
@@ -58,14 +84,6 @@ public class Login extends javax.swing.JPanel {
 
     public void setRound(int round) {
         this.round = round;
-    }
-
-    public boolean isValidado() {
-        return validado;
-    }
-
-    public void setValidado(boolean validado) {
-        this.validado = validado;
     }
 
     private Shape createRound() {
@@ -162,17 +180,7 @@ public class Login extends javax.swing.JPanel {
 
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        try {
-            int rg;
-            String senha;
-            rg = Integer.parseInt(inputUser.getText());
-            senha = inputPass.getText();
-            FuncionarioDAO fdao = new FuncionarioDAO();
-            fdao.login(rg, senha);
-            setup.setVisible(false);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        realizaLogin();
     }//GEN-LAST:event_btnEntrarActionPerformed
 
 

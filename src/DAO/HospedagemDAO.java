@@ -4,6 +4,8 @@
  */
 package DAO;
 
+import Controller.ClienteController;
+import Controller.QuartoController;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -59,11 +61,11 @@ public class HospedagemDAO {
 
             while (result.next()) {
                 Hospedagem h = new Hospedagem();
-                ClienteDAO cdao = new ClienteDAO();
-                QuartoDAO qdao = new QuartoDAO();
+                ClienteController cc = new ClienteController();
+                QuartoController qc = new QuartoController();
                 h.setId(result.getInt("id"));
-                h.setCliente(cdao.buscarClienteId(result.getInt("id_cliente")));
-                h.setQuarto(qdao.buscarQuartoId(result.getInt("quarto_id")));
+                h.setCliente(cc.buscarClienteId(result.getInt("id_cliente")));
+                h.setQuarto(qc.buscarQuartoId(result.getInt("quarto_id")));
                 h.setCheckin(result.getDate("data_checkin"));
                 h.setCheckout(result.getDate("data_checkout"));
                 h.setnHospedes(result.getInt("num_hospedes"));
@@ -88,11 +90,11 @@ public class HospedagemDAO {
             ResultSet result = state.executeQuery();
             
             if (result.next()) {
-                ClienteDAO cdao = new ClienteDAO();
-                QuartoDAO qdao = new QuartoDAO();
+                ClienteController cc = new ClienteController();
+                QuartoController qc = new QuartoController();
                 h.setId(result.getInt("id"));
-                h.setCliente(cdao.buscarClienteId(result.getInt("id_cliente")));
-                h.setQuarto(qdao.buscarQuartoId(result.getInt("quarto_id")));
+                h.setCliente(cc.buscarClienteId(result.getInt("id_cliente")));
+                h.setQuarto(qc.buscarQuartoId(result.getInt("quarto_id")));
                 h.setCheckin(result.getDate("data_checkin"));
                 h.setCheckout(result.getDate("data_checkout"));
                 h.setnHospedes(result.getInt("num_hospedes"));

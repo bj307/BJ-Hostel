@@ -61,6 +61,11 @@ public class FuncionarioDAO {
             ResultSet rs = state.executeQuery();
             if (rs.next()) {
                 Dashboard dashboard = new Dashboard();
+                if (rs.getString("cargo").equals("ADM")) {
+                    dashboard.verificaAdm(true);
+                } else {
+                    dashboard.verificaAdm(false);
+                }
                 dashboard.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Sai fora hacker");

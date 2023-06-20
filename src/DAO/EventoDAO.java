@@ -70,7 +70,7 @@ public class EventoDAO {
         }
     }
 
-    public List<Evento> listarEventoSH(int i) {
+    public List<Evento> listarEventoHosp(int i) {
         try {
             int id = i;
             List<Evento> lista = new ArrayList<>();
@@ -101,7 +101,7 @@ public class EventoDAO {
         }
     }
     
-    public int buscarPessoasEvento(int i) {
+    public int buscarParticipantes(int i) {
         try {
             int id = i;
             String sql = "select * from hospedagem_evento where evento_id = " + id;

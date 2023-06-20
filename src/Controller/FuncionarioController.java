@@ -8,12 +8,16 @@ import DAO.FuncionarioDAO;
 import model.Funcionario;
 
 /**
+ * Classe responsável por controlar as operações relacionadas aos funcionários.
  *
  * @author kaior
  */
 public class FuncionarioController {
-    
-    public void cadastra(){
+
+    /**
+     * Cadastra um novo funcionário.
+     */
+    public void cadastrarFuncionario() {
         Funcionario f = new Funcionario();
         f.setNome("Kaio");
         f.setRg(1234567);
@@ -29,5 +33,18 @@ public class FuncionarioController {
         f.setEstado("GO");
         FuncionarioDAO fDao = new FuncionarioDAO();
         fDao.cadastrarFuncionario(f);
+    }
+
+    /**
+     * Realiza o login de um funcionário.
+     *
+     * @param i : o RG do funcionário
+     * @param s : a senha do funcionário
+     */
+    public void login(int i, String s) {
+        int rg = i;
+        String senha = s;
+        FuncionarioDAO fDao = new FuncionarioDAO();
+        fDao.login(rg, senha);
     }
 }

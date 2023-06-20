@@ -17,22 +17,28 @@ import model.Quarto;
 import model.Servico;
 
 /**
+ * Home é um painel que representa a tela principal do dashboard.
  *
  * @author kaior
  */
 public class Home extends javax.swing.JPanel {
 
     /**
-     * Creates new form Home
+     * Construtor da classe Home. Cria a interface gráfica do painel e atualiza
+     * os cards e tabela de serviços.
      */
     public Home() {
         initComponents();
         atualizaCards();
     }
 
+    /**
+     * Atualiza a tabela de serviços em aberto com os serviços com status
+     * Aberto.
+     */
     public void atualizaTabela() {
         ServicoController sc = new ServicoController();
-        List<Servico> lista = sc.listar();
+        List<Servico> lista = sc.listarTodosServicos();
         DefaultTableModel servicosTb = (DefaultTableModel) tbServicoAberto.getModel();
         servicosTb.setNumRows(0);
         for (Servico s : lista) {
@@ -46,20 +52,23 @@ public class Home extends javax.swing.JPanel {
             }
         }
     }
-    
+
+    /**
+     * Atualiza os dados exibidos nos cards da home.
+     */
     public void atualizaCards() {
         //atualiza card clientes
         ClienteController cc = new ClienteController();
-        List<Cliente> listac = cc.listar();
+        List<Cliente> listac = cc.listarCliente();
         String cliente = String.valueOf(listac.size());
         cardClientes1.atualizaCard(cliente);
-        
+
         //atualiza card quartos
         QuartoController qc = new QuartoController();
-        List<Quarto> listaq = qc.listaDesocupado();
+        List<Quarto> listaq = qc.listarQuartoDisponivel();
         String quarto = String.valueOf(listaq.size());
         cardQuartos1.atualizaCard(quarto);
-        
+
         //lista reservas
         HospedagemController hc = new HospedagemController();
         List<Hospedagem> listahc = hc.listarHospedagem();
@@ -180,7 +189,7 @@ public class Home extends javax.swing.JPanel {
 
     private void tbServicoAbertoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbServicoAbertoMouseReleased
         //clicou na tabela de serviços abertos
-        
+
     }//GEN-LAST:event_tbServicoAbertoMouseReleased
 
 

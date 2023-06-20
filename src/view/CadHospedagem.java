@@ -15,6 +15,7 @@ import model.Quarto;
 import model.Util;
 
 /**
+ * Classe responsável por controlar o cadastro de hospedagens.
  *
  * @author 2020101202010138
  */
@@ -24,11 +25,16 @@ public class CadHospedagem extends javax.swing.JFrame {
     HospedagemController hospedagemController = new HospedagemController();
     Cliente cliente;
 
+    /**
+     * Construtor vazio.
+     */
     public CadHospedagem() {
     }
 
     /**
-     * Creates new form CadCliente
+     * Construtor que recebe um cliente.
+     *
+     * @param c o cliente para o qual será realizada a hospedagem
      */
     public CadHospedagem(Cliente c) {
         initComponents();
@@ -43,9 +49,12 @@ public class CadHospedagem extends javax.swing.JFrame {
         return cliente;
     }
 
+    /**
+     * Atualiza a lista de quartos disponíveis no combobox.
+     */
     public void listaQuartos() {
         boxQuartos.removeAllItems();
-        List<Quarto> lista = quartoController.listaDesocupado();
+        List<Quarto> lista = quartoController.listarQuartoDisponivel();
         for (Quarto q : lista) {
             boxQuartos.addItem(q.getTipo());
         }
@@ -243,7 +252,8 @@ public class CadHospedagem extends javax.swing.JFrame {
         //botão cadastrar cliente
         Util util = new Util();
         if (util.VerificaInput(this)) {
-            hospedagemController.cadastrar(this);
+            hospedagemController.cadastrarHospedagem(this);
+            JOptionPane.showMessageDialog(null, "Hospedagem criada com sucesso.");
             this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos.");

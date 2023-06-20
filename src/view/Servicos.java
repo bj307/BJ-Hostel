@@ -6,7 +6,6 @@ package view;
 
 import Controller.ServicoController;
 import Controller.ServicoDisponivelController;
-import DAO.ServicoDAO;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.Cliente;
@@ -14,23 +13,28 @@ import model.Servico;
 import model.ServicoDisponivel;
 
 /**
+ * A classe Servicos é responsável por exibir uma lista de serviços disponíveis
+ * e uma lista de serviços contratados nas hospedagens.
  *
  * @author kaior
  */
 public class Servicos extends javax.swing.JPanel {
 
     /**
-     * Creates new form Eventos
+     * Construtor da classe Servicos.
      */
     public Servicos() {
         initComponents();
         tbServicos.getTableHeader().setReorderingAllowed(false);
         servicoOferecido.getTableHeader().setReorderingAllowed(false);
     }
-    
+
+    /**
+     * Atualiza a tabela de serviços com os dados mais recentes.
+     */
     public void atualizaTabela() {
         ServicoController sc = new ServicoController();
-        List<Servico> lista = sc.listar();
+        List<Servico> lista = sc.listarTodosServicos();
         DefaultTableModel servicosTb = (DefaultTableModel) tbServicos.getModel();
         servicosTb.setNumRows(0);
         for (Servico s : lista) {
@@ -42,9 +46,9 @@ public class Servicos extends javax.swing.JPanel {
                 s.getStatus()
             });
         }
-        
+
         ServicoDisponivelController sdc = new ServicoDisponivelController();
-        List<ServicoDisponivel> listad = sdc.listar();
+        List<ServicoDisponivel> listad = sdc.listarServico();
         DefaultTableModel servicosdTb = (DefaultTableModel) servicoOferecido.getModel();
         servicosdTb.setNumRows(0);
         for (ServicoDisponivel sd : listad) {
@@ -55,9 +59,12 @@ public class Servicos extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Atualiza o painel de contagem de serviços abertos e fechados.
+     */
     public void atualizaCard() {
-        ServicoDAO sDao = new ServicoDAO();
-        List<Servico> lista = sDao.listarServico();
+        ServicoController sc = new ServicoController();
+        List<Servico> lista = sc.listarTodosServicos();
         int aberto = 0;
         int fechado = 0;
         for (Servico s : lista) {
@@ -70,7 +77,11 @@ public class Servicos extends javax.swing.JPanel {
         nServicosAbertos.setText(String.valueOf(aberto));
         nServicosFechados.setText(String.valueOf(fechado));
     }
-    
+
+    /**
+     * Manipula o evento de clique na tabela de serviços. Ao clicar na linha da
+     * tabela é exibido detalhes do serviço.
+     */
     public void clicouTabela() {
         ServicoContratadoDetalhes scd = new ServicoContratadoDetalhes();
         scd.setVisible(true);
@@ -79,7 +90,7 @@ public class Servicos extends javax.swing.JPanel {
         Cliente c;
         int id = Integer.parseInt(tbServicos.getValueAt(tbServicos.getSelectedRow(), 0).toString());
         s = sc.buscarServicoId(id);
-        c = sc.buscarIdhs(id);
+        c = sc.buscarServHospId(id);
         scd.lerServico(s, c, this);
     }
 

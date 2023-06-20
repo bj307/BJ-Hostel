@@ -8,14 +8,14 @@ import com.formdev.flatlaf.IntelliJTheme;
 import java.awt.CardLayout;
 
 /**
+ * Dashboard é a tela principal que recebe e gerencia as outras telas do sistema
+ * BJ HOSTEL. A classe Dashboard é responsável por criar a interface gráfica do
+ * dashboard e controlar a exibição das outras telas. Ela utiliza um layout de
+ * cartões (CardLayout) para alternar entre as telas de forma dinâmica.
  *
  * @author kaior
  */
 public class Dashboard extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Dashboard2
-     */
 
     Home home = new Home();
     Clientes cliente = new Clientes();
@@ -23,16 +23,17 @@ public class Dashboard extends javax.swing.JFrame {
     Quartos quarto = new Quartos();
     Servicos servico = new Servicos();
     Hospedagens hospedagem = new Hospedagens();
-    
+
     /**
-     * Creates new form Dashboard
+     * Construtor da classe Dashboard. Cria a interface gráfica do dashboard e
+     * configura as telas do sistema.
      */
     public Dashboard() {
         initComponents();
-        
+
         this.setTitle("BJ HOSTEL");
         this.setLocationRelativeTo(null);
-        
+
         jPanelVaria.setLayout(new CardLayout());
         jPanelVaria.add(home, "home");
         jPanelVaria.add(cliente, "clientes");
@@ -43,6 +44,14 @@ public class Dashboard extends javax.swing.JFrame {
         CardLayout cl = (CardLayout) (jPanelVaria.getLayout());
         cl.show(jPanelVaria, "home");
         home.atualizaTabela();
+    }
+    
+    public void verificaAdm(boolean adm) {
+        if (adm) {
+            cadFuncionario.setVisible(true);
+        } else {
+            cadFuncionario.setVisible(false);
+        }
     }
 
     /**
@@ -308,7 +317,7 @@ public class Dashboard extends javax.swing.JFrame {
                 new Dashboard().setVisible(true);
             }
         });
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

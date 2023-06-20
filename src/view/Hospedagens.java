@@ -10,20 +10,27 @@ import javax.swing.table.DefaultTableModel;
 import model.Hospedagem;
 
 /**
+ * A classe Hospedagens é responsável por exibir e gerenciar as informações
+ * relacionadas às hospedagens, incluindo a exibição de uma tabela com os dados
+ * das hospedagens cadastradas.
  *
  * @author kaior
  */
 public class Hospedagens extends javax.swing.JPanel {
 
     HospedagemController hospedagemController = new HospedagemController();
+
     /**
-     * Creates new form Clientes
+     * Construtor da classe Hospedagens.
      */
     public Hospedagens() {
         initComponents();
         tableHospedagens.getTableHeader().setReorderingAllowed(false);
     }
 
+    /**
+     * Atualiza a tabela de hospedagens com os dados atualizados.
+     */
     public void atualizaTabela() {
         List<Hospedagem> lista = hospedagemController.listarHospedagem();
         DefaultTableModel hospedagemTb = (DefaultTableModel) tableHospedagens.getModel();
@@ -136,7 +143,7 @@ public class Hospedagens extends javax.swing.JPanel {
         HospedagemDetalhes hospedagemDetalhes = new HospedagemDetalhes(this);
         hospedagemDetalhes.setVisible(true);
         Hospedagem h;
-        h = hospedagemController.buscarId(Integer.parseInt(tableHospedagens.getValueAt(tableHospedagens.getSelectedRow(), 0).toString()));
+        h = hospedagemController.buscaHospedagemId(Integer.parseInt(tableHospedagens.getValueAt(tableHospedagens.getSelectedRow(), 0).toString()));
         hospedagemDetalhes.lerHospedagem(h);
     }//GEN-LAST:event_tableHospedagensMouseReleased
 

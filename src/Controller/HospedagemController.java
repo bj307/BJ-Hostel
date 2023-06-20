@@ -15,12 +15,18 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
+ * Classe responsável por controlar as operações relacionadas às hospedagens.
  *
  * @author kaior
  */
 public class HospedagemController {
 
-    public void cadastrar(CadHospedagem cHospedagem) {
+    /**
+     * Cadastra uma nova hospedagem.
+     *
+     * @param cHospedagem : é o formulário de cadastro de hospedagem
+     */
+    public void cadastrarHospedagem(CadHospedagem cHospedagem) {
         Hospedagem h = new Hospedagem();
         HospedagemDAO hDao = new HospedagemDAO();
 
@@ -30,7 +36,7 @@ public class HospedagemController {
 
         QuartoController qc = new QuartoController();
         q.setStatus("ocupado");
-        qc.atualizar(q);
+        qc.atualizarQuarto(q);
 
         String d = cHospedagem.inputCheckin.getText();
         SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
@@ -53,13 +59,24 @@ public class HospedagemController {
         hDao.cadastrarHospedagem(h);
     }
 
+    /**
+     * Retorna a lista de todas as hospedagens.
+     *
+     * @return a lista de hospedagens
+     */
     public List<Hospedagem> listarHospedagem() {
         HospedagemDAO hDao = new HospedagemDAO();
         List<Hospedagem> lista = hDao.listarHospedagem();
         return lista;
     }
 
-    public Hospedagem buscarId(int i) {
+    /**
+     * Busca uma hospedagem pelo seu ID.
+     *
+     * @param i : o ID da hospedagem a ser buscada
+     * @return a hospedagem encontrada, ou null se não encontrada
+     */
+    public Hospedagem buscaHospedagemId(int i) {
         int id = i;
         HospedagemDAO hDao = new HospedagemDAO();
         Hospedagem h;
@@ -67,7 +84,12 @@ public class HospedagemController {
         return h;
     }
 
-    public void atualizar(Hospedagem hp) {
+    /**
+     * Atualiza os dados de uma hospedagem.
+     *
+     * @param hp : a hospedagem a ser atualizada
+     */
+    public void atualizarHospedagem(Hospedagem hp) {
         Hospedagem h = hp;
         HospedagemDAO hDao = new HospedagemDAO();
         hDao.atualizarHospedagem(h);

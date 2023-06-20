@@ -15,6 +15,7 @@ import model.ServicoDisponivel;
 import model.Util;
 
 /**
+ * Classe responsável por controlar o cadastro de serviços.
  *
  * @author 2020101202010138
  */
@@ -26,11 +27,18 @@ public class CadServico extends javax.swing.JFrame {
     HospedagemDetalhes hd;
     Hospedagens hs;
 
+    /**
+     * Construtor vazio.
+     */
     public CadServico() {
     }
-    
+
     /**
-     * Creates new form CadCliente
+     * Construtor que recebe objetos relacionados à hospedagem.
+     *
+     * @param h : a hospedagem relacionada ao serviço
+     * @param hds : os detalhes da hospedagem
+     * @param hd : as hospedagens existentes
      */
     public CadServico(Hospedagem h, HospedagemDetalhes hds, Hospedagens hd) {
         initComponents();
@@ -45,10 +53,13 @@ public class CadServico extends javax.swing.JFrame {
     public Hospedagem getHosp() {
         return hosp;
     }
-    
+
+    /**
+     * Atualiza a lista de serviços disponiveis.
+     */
     public void listaServicosDisp() {
         ServicoDisponivelController sdc = new ServicoDisponivelController();
-        List<ServicoDisponivel> lista = sdc.listar();
+        List<ServicoDisponivel> lista = sdc.listarServico();
         boxServicos.removeAllItems();
         for (ServicoDisponivel sd : lista) {
             boxServicos.addItem(sd.getNome());
@@ -197,7 +208,7 @@ public class CadServico extends javax.swing.JFrame {
         //botão cadastrar serviço na hospedagem
         Util util = new Util();
         if (util.VerificaInput(this)) {
-            servicoController.cadastrar(this);
+            servicoController.cadastrarServico(this);
             hd.atualizaTbServicos();
             hs.atualizaTabela();
             this.setVisible(false);
@@ -208,7 +219,7 @@ public class CadServico extends javax.swing.JFrame {
 
     private void boxServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxServicosActionPerformed
         //bux de serviços disponiveis
-        
+
     }//GEN-LAST:event_boxServicosActionPerformed
 
     /**

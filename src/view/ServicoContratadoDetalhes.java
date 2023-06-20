@@ -5,10 +5,13 @@
 package view;
 
 import Controller.ServicoController;
+import javax.swing.JOptionPane;
 import model.Cliente;
 import model.Servico;
 
 /**
+ * A classe ServicoContratadoDetalhes é responsável por exibir os detalhes de um
+ * serviço contratado, juntamente com as informações do cliente relacionado.
  *
  * @author kaior
  */
@@ -18,9 +21,9 @@ public class ServicoContratadoDetalhes extends javax.swing.JFrame {
     Servicos servicos;
     Cliente cliente;
     ServicoController sc = new ServicoController();
-    
+
     /**
-     * Creates new form ServicoContratado
+     * Construtor da classe ServicoContratadoDetalhes.
      */
     public ServicoContratadoDetalhes() {
         initComponents();
@@ -28,6 +31,15 @@ public class ServicoContratadoDetalhes extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
+    /**
+     * Exibe os detalhes do serviço contratado e do cliente.
+     *
+     * @param s : O objeto Servico contendo as informações do serviço
+     * contratado.
+     * @param c : O objeto Cliente contendo as informações do cliente.
+     * @param ss : O objeto Servicos referente à classe principal que exibe os
+     * serviços.
+     */
     public void lerServico(Servico s, Cliente c, Servicos ss) {
         this.servico = s;
         this.cliente = c;
@@ -39,7 +51,10 @@ public class ServicoContratadoDetalhes extends javax.swing.JFrame {
         cpf.setText(cliente.getCpf());
         verificaStatus();
     }
-    
+
+    /**
+     * Verifica o status do serviço e exibe ou oculta o botão de conclusão.
+     */
     public void verificaStatus() {
         if (servico.getStatus().equals("Aberto")) {
             btnConcluir.setVisible(true);
@@ -47,7 +62,7 @@ public class ServicoContratadoDetalhes extends javax.swing.JFrame {
             btnConcluir.setVisible(false);
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -200,6 +215,7 @@ public class ServicoContratadoDetalhes extends javax.swing.JFrame {
         //conclui serviço
         servico.setStatus("Fechado");
         sc.atualizaServico(servico);
+        JOptionPane.showMessageDialog(null, "Servico atualizado com sucesso!" + servico.getStatus());
         btnConcluir.setVisible(false);
         servicos.atualizaTabela();
         servicos.atualizaCard();

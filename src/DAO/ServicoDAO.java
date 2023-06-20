@@ -4,6 +4,8 @@
  */
 package DAO;
 
+import Controller.HospedagemController;
+import Controller.ServicoDisponivelController;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -31,8 +33,8 @@ public class ServicoDAO {
     public void cadastrarServico(Servico servico, Hospedagem hospedagem) {
         try {
 
-            HospedagemDAO hd = new HospedagemDAO();
-            hd.atualizarHospedagem(hospedagem);
+            HospedagemController hc = new HospedagemController();
+            hc.atualizarHospedagem(hospedagem);
 
             String sql = "insert into tb_servicos (servicoDisponivelId, data, quantidade, preco, status) values (?,?,?,?,?)";
             PreparedStatement state = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -62,7 +64,7 @@ public class ServicoDAO {
         }
     }
 
-    public List<Servico> listarServico() {
+    public List<Servico> listarTodosServicos() {
         try {
             List<Servico> lista = new ArrayList<>();
 
@@ -73,10 +75,10 @@ public class ServicoDAO {
 
             while (result.next()) {
                 Servico s = new Servico();
-                ServicoDisponivelDAO sdao = new ServicoDisponivelDAO();
+                ServicoDisponivelController sdc = new ServicoDisponivelController();
 
                 s.setId(result.getInt("id"));
-                s.setServicoDisponivel(sdao.buscarServicoId(result.getInt("servicoDisponivelId")));
+                s.setServicoDisponivel(sdc.buscarServicoId(result.getInt("servicoDisponivelId")));
                 s.setData(result.getString("data"));
                 s.setQuantidade(result.getInt("quantidade"));
                 s.setPreco(result.getDouble("preco"));
@@ -91,7 +93,7 @@ public class ServicoDAO {
         }
     }
 
-    public List<Servico> listarServicoH(int i) {
+    public List<Servico> listarServicosHospedagem(int i) {
         try {
             int id = i;
             List<Servico> lista = new ArrayList<>();
@@ -108,10 +110,10 @@ public class ServicoDAO {
                 ResultSet result2 = state2.executeQuery();
                 while (result2.next()) {
                     Servico s = new Servico();
-                    ServicoDisponivelDAO sdao = new ServicoDisponivelDAO();
+                    ServicoDisponivelController sdc = new ServicoDisponivelController();
 
                     s.setId(result2.getInt("id"));
-                    s.setServicoDisponivel(sdao.buscarServicoId(result2.getInt("servicoDisponivelId")));
+                    s.setServicoDisponivel(sdc.buscarServicoId(result2.getInt("servicoDisponivelId")));
                     s.setData(result2.getString("data"));
                     s.setQuantidade(result2.getInt("quantidade"));
                     s.setPreco(result2.getDouble("preco"));
@@ -127,7 +129,7 @@ public class ServicoDAO {
         }
     }
 
-    public Servico buscarId(int i) {
+    public Servico buscarServicoId(int i) {
         try {
             int id = i;
             Servico s = new Servico();
@@ -135,10 +137,10 @@ public class ServicoDAO {
             PreparedStatement state = con.prepareStatement(sql);
             ResultSet result = state.executeQuery();
             while (result.next()) {
-                ServicoDisponivelDAO sdao = new ServicoDisponivelDAO();
+                ServicoDisponivelController sdc = new ServicoDisponivelController();
 
                 s.setId(result.getInt("id"));
-                s.setServicoDisponivel(sdao.buscarServicoId(result.getInt("servicoDisponivelId")));
+                s.setServicoDisponivel(sdc.buscarServicoId(result.getInt("servicoDisponivelId")));
                 s.setData(result.getString("data"));
                 s.setQuantidade(result.getInt("quantidade"));
                 s.setPreco(result.getDouble("preco"));
@@ -151,7 +153,7 @@ public class ServicoDAO {
         }
     }
 
-    public Cliente buscarIdhs(int i) {
+    public Cliente buscarServHospId(int i) {
         try {
             int id = i;
             Cliente c = new Cliente();
@@ -188,22 +190,21 @@ public class ServicoDAO {
             return null;
         }
     }
-    
+
     public void atualizaServico(Servico servico) {
         try {
             String sql = "update tb_servicos set servicoDisponivelId=?, data=?, quantidade=?, preco=?, status=? where id=?";
             PreparedStatement state = con.prepareStatement(sql);
-            
+
             state.setInt(1, servico.getServicoDisponivel().getId());
             state.setString(2, servico.getData());
             state.setInt(3, servico.getQuantidade());
             state.setDouble(4, servico.getPreco());
             state.setString(5, servico.getStatus());
             state.setInt(6, servico.getId());
-            
+
             state.execute();
             state.close();
-            System.out.println("Servico atualizado com sucesso!" + servico.getStatus());
         } catch (Exception e) {
         }
     }

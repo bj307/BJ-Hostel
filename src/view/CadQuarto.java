@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import model.Util;
 
 /**
+ * Classe responsável por controlar o cadastro de quartos.
  *
  * @author 2020101202010138
  */
@@ -18,11 +19,16 @@ public class CadQuarto extends javax.swing.JFrame {
     QuartoController quartoController = new QuartoController();
     Quartos quarto;
 
+    /**
+     * Construtor vazio.
+     */
     public CadQuarto() {
     }
-    
+
     /**
-     * Creates new form CadCliente
+     * Construtor que recebe a lista de quartos existentes.
+     *
+     * @param q o objeto Quartos é a lista de quartos existente
      */
     public CadQuarto(Quartos q) {
         initComponents();
@@ -160,10 +166,10 @@ public class CadQuarto extends javax.swing.JFrame {
         //botão cadastrar cliente
         Util util = new Util();
         if (util.VerificaInput(this)) {
-            quartoController.cadastrar(this);
+            quartoController.cadastrarQuarto(this);
             quarto.atualizaTabela();
-            util.LimpaTelaFrame(this);
-        util.LimpaTelaFrame(this);
+            JOptionPane.showMessageDialog(null, "Quarto criado com sucesso.");
+            this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
         }
@@ -174,7 +180,7 @@ public class CadQuarto extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         IntelliJTheme.setup(Setup.class.getResourceAsStream("/Gradianto_deep_ocean.theme.json"));
 
         /* Create and display the form */

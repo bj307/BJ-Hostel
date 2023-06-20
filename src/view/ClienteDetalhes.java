@@ -8,6 +8,7 @@ import Controller.ClienteController;
 import model.Cliente;
 
 /**
+ * Classe responsável por exibir os detalhes de um cliente.
  *
  * @author kaior
  */
@@ -16,16 +17,22 @@ public class ClienteDetalhes extends javax.swing.JFrame {
     ClienteController clienteController = new ClienteController();
     Cliente cliente;
     Clientes clientes;
-    
+
     /**
-     * Creates new form ClienteDetalhes
+     * Construtor vazio.
      */
     public ClienteDetalhes() {
         initComponents();
         this.setTitle("Detalhes do cliente");
         this.setLocationRelativeTo(null);
     }
-    
+
+    /**
+     * Preenche os campos da tela com as informações do cliente recebido.
+     *
+     * @param c : o objeto Cliente com as informações do cliente
+     * @param cl : o objeto Clientes referente à interface de clientes
+     */
     public void lerCliente(Cliente c, Clientes cl) {
         this.cliente = c;
         nome.setText(c.getNome());
@@ -307,7 +314,7 @@ public class ClienteDetalhes extends javax.swing.JFrame {
 
     private void salvarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarDadosActionPerformed
         //atualiza cliente
-        clienteController.atualiza(this, cliente);
+        clienteController.atualizarCliente(this, cliente);
         clientes.atualizaTabela();
     }//GEN-LAST:event_salvarDadosActionPerformed
 

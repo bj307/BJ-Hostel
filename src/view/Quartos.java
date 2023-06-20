@@ -10,13 +10,15 @@ import javax.swing.table.DefaultTableModel;
 import model.Quarto;
 
 /**
+ * A classe Quartos é responsável por exibir os quartos disponíveis e suas
+ * informações na interface do usuário.
  *
  * @author kaior
  */
 public class Quartos extends javax.swing.JPanel {
 
     /**
-     * Creates new form Eventos
+     * Construtor da classe Quartos.
      */
     public Quartos() {
         initComponents();
@@ -24,9 +26,12 @@ public class Quartos extends javax.swing.JPanel {
         atualizaCard();
     }
 
+    /**
+     * Atualiza a tabela de quartos com os dados mais recentes.
+     */
     public void atualizaTabela() {
         QuartoController qc = new QuartoController();
-        List<Quarto> lista = qc.listar();
+        List<Quarto> lista = qc.listarQuarto();
         DefaultTableModel quartosTb = (DefaultTableModel) tbQuartos.getModel();
         quartosTb.setNumRows(0);
         for (Quarto q : lista) {
@@ -39,9 +44,12 @@ public class Quartos extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Atualiza a cotnagem exibida nos cards de quartos.
+     */
     public void atualizaCard() {
         QuartoController qc = new QuartoController();
-        List<Quarto> lista = qc.listar();
+        List<Quarto> lista = qc.listarQuarto();
         int qS = 0;
         int qD = 0;
         int qE = 0;

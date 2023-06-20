@@ -7,14 +7,19 @@ package view;
 import model.Evento;
 
 /**
+ * EventoUni é um painel que exibe as informações de um evento específico
  *
  * @author kaior
  */
 public class EventoUni extends javax.swing.JPanel {
 
     Evento evento;
+
     /**
-     * Creates new form UserUni
+     * Construtor da classe EventoUni. Cria a interface gráfica do painel e
+     * exibe as informações do evento fornecido.
+     *
+     * @param e o objeto Evento contendo as informações do evento a ser exibido
      */
     public EventoUni(Evento e) {
         initComponents();
@@ -56,35 +61,15 @@ public class EventoUni extends javax.swing.JPanel {
                 nomeEventoMouseReleased(evt);
             }
         });
-        nomeEvento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomeEventoActionPerformed(evt);
-            }
-        });
 
         dataEvento.setEditable(false);
         dataEvento.setFont(new java.awt.Font("Montserrat Medium", 0, 14)); // NOI18N
-        dataEvento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dataEventoActionPerformed(evt);
-            }
-        });
 
         capacidadeEvento.setEditable(false);
         capacidadeEvento.setFont(new java.awt.Font("Montserrat Medium", 0, 14)); // NOI18N
-        capacidadeEvento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                capacidadeEventoActionPerformed(evt);
-            }
-        });
 
         localEvento.setEditable(false);
         localEvento.setFont(new java.awt.Font("Montserrat Medium", 0, 14)); // NOI18N
-        localEvento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                localEventoActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -135,14 +120,6 @@ public class EventoUni extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void capacidadeEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_capacidadeEventoActionPerformed
-
-    }//GEN-LAST:event_capacidadeEventoActionPerformed
-
-    private void nomeEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeEventoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomeEventoActionPerformed
-
     private void jPanel4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseReleased
 
     }//GEN-LAST:event_jPanel4MouseReleased
@@ -151,14 +128,6 @@ public class EventoUni extends javax.swing.JPanel {
         //clicou no nome da pessoa
 
     }//GEN-LAST:event_nomeEventoMouseReleased
-
-    private void localEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_localEventoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_localEventoActionPerformed
-
-    private void dataEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataEventoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dataEventoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

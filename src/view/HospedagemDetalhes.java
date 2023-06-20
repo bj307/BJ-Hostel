@@ -7,8 +7,8 @@ package view;
 import Controller.EventoController;
 import Controller.FaturaController;
 import Controller.HospedagemController;
+import Controller.QuartoController;
 import Controller.ServicoController;
-import DAO.QuartoDAO;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -19,6 +19,8 @@ import model.Hospedagem;
 import model.Servico;
 
 /**
+ * HospedagemDetalhes é uma classe que representa a tela de detalhes de uma
+ * hospedagem.
  *
  * @author kaior
  */
@@ -27,16 +29,22 @@ public class HospedagemDetalhes extends javax.swing.JFrame {
     ServicoController servicoController = new ServicoController();
     EventoController eventoController = new EventoController();
     HospedagemController hc = new HospedagemController();
-    QuartoDAO qDao = new QuartoDAO();
+    QuartoController qc = new QuartoController();
     ServicoController sc = new ServicoController();
     Hospedagem h;
     Hospedagens hs;
 
+    /**
+     * Construtor vazio da classe HospedagemDetalhes.
+     */
     public HospedagemDetalhes() {
     }
 
     /**
-     * Creates new form HospedagemDetalhes
+     * Cria a interface gráfica da tela de detalhes de hospedagem e configura as
+     * propriedades iniciais.
+     *
+     * @param h : Objeto Hospedagens é a lista de hospedagens existentes.
      */
     public HospedagemDetalhes(Hospedagens h) {
         initComponents();
@@ -45,8 +53,12 @@ public class HospedagemDetalhes extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
+    /**
+     * Atualiza a tabela de serviços com os serviços relacionados à hospedagem
+     * atual.
+     */
     public void atualizaTbServicos() {
-        List<Servico> lista = servicoController.listarSH(h.getId());
+        List<Servico> lista = servicoController.listarServicosHospedagem(h.getId());
         DefaultTableModel servicosTb = (DefaultTableModel) tbServico.getModel();
         servicosTb.setNumRows(0);
         for (Servico s : lista) {
@@ -58,6 +70,13 @@ public class HospedagemDetalhes extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Verifica se a hospedagem possui data de checkout definida e atualiza a
+     * interface de acordo.
+     *
+     * @param h : A hospedagem a ser verificada.
+     * @return True se o checkout estiver definido, False caso contrário.
+     */
     public boolean verificaCheckout(Hospedagem h) {
         if (h.getCheckout() != null) {
             checkout.setText(h.getCheckout().toString());
@@ -74,6 +93,11 @@ public class HospedagemDetalhes extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Preenche a interface com os dados da hospedagem recebida.
+     *
+     * @param hospedagem : A hospedagem a ser exibida.
+     */
     public void lerHospedagem(Hospedagem hospedagem) {
         this.h = hospedagem;
         nome.setText(h.getCliente().getNome());
@@ -89,8 +113,12 @@ public class HospedagemDetalhes extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Atualiza a tabela de eventos com os eventos relacionados à hospedagem
+     * atual.
+     */
     public void atualizaTbEventos() {
-        List<Evento> lista = eventoController.listarSH(h.getId());
+        List<Evento> lista = eventoController.listarEventoHosp(h.getId());
         DefaultTableModel eventosTb = (DefaultTableModel) tbEvento.getModel();
         eventosTb.setNumRows(0);
         for (Evento e : lista) {
@@ -101,33 +129,36 @@ public class HospedagemDetalhes extends javax.swing.JFrame {
 
         }
     }
-    
+
+    /**
+     * Realiza o checkout da hospedagem atual.
+     */
     public void realizaCheckout() {
-        List<Servico> lista = sc.listarSH(h.getId());
+        List<Servico> lista = sc.listarServicosHospedagem(h.getId());
         for (Servico s : lista) {
             if (s.getStatus().equals("Aberto")) {
                 s.setStatus("Fechado");
                 sc.atualizaServico(s);
             }
         }
-        
+
         Calendar hoje = Calendar.getInstance();
         Date dataCheckout = hoje.getTime();
         h.setCheckout(dataCheckout);
-        hc.atualizar(h);
+        hc.atualizarHospedagem(h);
         btnCheckout.setVisible(false);
         addEvento.setEnabled(false);
         addServ.setEnabled(false);
         h.getQuarto().setStatus("desocupado");
-        qDao.atualizarQuarto(h.getQuarto());
+        qc.atualizarQuarto(h.getQuarto());
         lerHospedagem(h);
         hs.atualizaTabela();
-        
+
         new FaturaController().cadastrar(h);
     }
-    
+
     public void verFatura(Hospedagem hp) {
-        
+
     }
 
     /**
@@ -385,10 +416,9 @@ public class HospedagemDetalhes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
-        //realiza checkout
+
         realizaCheckout();
         int e = JOptionPane.showOptionDialog(null, "Checkout efetuado. Deseja ver a fatura?", "Check-Out", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Ver Fatura", "Sair"}, "Ver Fatura");
-        
         if (e == JOptionPane.YES_OPTION) {
             System.out.println("Ver fatura");
             verFatura(h);

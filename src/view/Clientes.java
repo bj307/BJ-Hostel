@@ -4,28 +4,32 @@
  */
 package view;
 
-import DAO.ClienteDAO;
+import Controller.ClienteController;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 
 /**
+ * Painel responsável por exibir a lista de clientes.
  *
  * @author kaior
  */
 public class Clientes extends javax.swing.JPanel {
 
     /**
-     * Creates new form Clientes
+     * Construtor.
      */
     public Clientes() {
         initComponents();
         tableCliente.getTableHeader().setReorderingAllowed(false);
     }
 
+    /**
+     * Atualiza a lista de clientes cadastrados.
+     */
     public void atualizaTabela() {
-        ClienteDAO cDao = new ClienteDAO();
-        List<Cliente> lista = cDao.listarCliente();
+        ClienteController cc = new ClienteController();
+        List<Cliente> lista = cc.listarCliente();
         DefaultTableModel clientesTb = (DefaultTableModel) tableCliente.getModel();
         clientesTb.setNumRows(0);
         for (Cliente c : lista) {
@@ -154,9 +158,9 @@ public class Clientes extends javax.swing.JPanel {
         //clicou nem uma linha da tabela
         ClienteDetalhes clienteDetalhes = new ClienteDetalhes();
         clienteDetalhes.setVisible(true);
-        ClienteDAO cDao = new ClienteDAO();
+        ClienteController cc = new ClienteController();
         Cliente c;
-        c = cDao.buscarClienteCpf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 0).toString());
+        c = cc.buscarClienteCpf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 0).toString());
         clienteDetalhes.lerCliente(c, this);
     }//GEN-LAST:event_tableClienteMouseReleased
 

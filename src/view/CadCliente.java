@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import model.Util;
 
 /**
+ * Classe responsável por controlar o cadastro de clientes.
  *
  * @author 2020101202010138
  */
@@ -18,11 +19,16 @@ public class CadCliente extends javax.swing.JFrame {
     ClienteController clienteController = new ClienteController();
     Clientes clientes;
 
+    /**
+     * Construtor vazio.
+     */
     public CadCliente() {
     }
-    
+
     /**
-     * Creates new form CadCliente
+     * Construtor que recebe uma lista de clientes.
+     *
+     * @param cli a lista de clientes
      */
     public CadCliente(Clientes cli) {
         initComponents();
@@ -280,9 +286,9 @@ public class CadCliente extends javax.swing.JFrame {
         //botão cadastrar cliente
         Util util = new Util();
         if (util.VerificaInput(this)) {
-            clienteController.cadastrar(this);
+            clienteController.cadastrarCliente(this);
             clientes.atualizaTabela();
-            util.LimpaTelaFrame(this);
+            this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
         }

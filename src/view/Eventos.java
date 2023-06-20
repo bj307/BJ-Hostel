@@ -4,26 +4,30 @@
  */
 package view;
 
-import DAO.EventoDAO;
+import Controller.EventoController;
 import java.util.List;
 import model.Evento;
 
 /**
+ * Eventos é um painel que exibe a lista de eventos disponíveis.
  *
  * @author kaior
  */
 public class Eventos extends javax.swing.JPanel {
 
     /**
-     * Creates new form Eventos
+     * Construtor da classe Eventos.
      */
     public Eventos() {
         initComponents();
     }
-    
+
+    /**
+     * Atualiza a lista de eventos existente.
+     */
     public void atualizaLista() {
-        EventoDAO eDao = new EventoDAO();
-        List<Evento> lista = eDao.listarEvento();
+        EventoController ec = new EventoController();
+        List<Evento> lista = ec.listarEvento();
         listaEventos.removeAll();
         if (lista.size() > 10) {
             listaEventos.setLayout(new java.awt.GridLayout(lista.size(), 1));

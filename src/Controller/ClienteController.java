@@ -11,12 +11,19 @@ import view.CadCliente;
 import view.ClienteDetalhes;
 
 /**
+ * Classe responsável por controlar as operações relacionadas aos clientes.
  *
  * @author 2020101202010138
  */
 public class ClienteController {
-    
-    public void cadastrar(CadCliente cCli){
+
+    /**
+     * Cadastra um novo cliente.
+     *
+     * @param cCli : o objeto CadCliente é a tela de cadastro de clientes que
+     * contem os dados do cliente.
+     */
+    public void cadastrarCliente(CadCliente cCli) {
         Cliente c = new Cliente();
         ClienteDAO cDao = new ClienteDAO();
         c.setNome(cCli.inputNome.getText());
@@ -32,8 +39,15 @@ public class ClienteController {
         c.setEstado(cCli.boxUf.getSelectedItem().toString());
         cDao.cadastrarCliente(c);
     }
-    
-    public void atualiza(ClienteDetalhes cCli, Cliente cliente) {
+
+    /**
+     * Atualiza os dados de um cliente existente.
+     *
+     * @param cCli : o objeto ClienteDetalhes é a tela de detalhes do cliente
+     * específico a ser atualizado
+     * @param cliente : o objeto Cliente a ser atualizado
+     */
+    public void atualizarCliente(ClienteDetalhes cCli, Cliente cliente) {
         ClienteDAO cDao = new ClienteDAO();
         Cliente c = new Cliente();
         c.setId(cliente.getId());
@@ -50,17 +64,41 @@ public class ClienteController {
         c.setEstado(cCli.boxUf.getSelectedItem().toString());
         cDao.atualizarCliente(c);
     }
-    
-    public List<Cliente> listar() {
+
+    /**
+     * Lista todos os clientes cadastrados.
+     *
+     * @return uma lista contendo todos os clientes cadastrados
+     */
+    public List<Cliente> listarCliente() {
         ClienteDAO cDao = new ClienteDAO();
         List<Cliente> lista = cDao.listarCliente();
         return lista;
     }
-    
-    public Cliente buscarId(int i) {
+
+    /**
+     * Busca um cliente pelo ID.
+     *
+     * @param i : o ID do cliente a ser buscado
+     * @return o objeto Cliente correspondente ao ID especificado, ou null se
+     * não for encontrado
+     */
+    public Cliente buscarClienteId(int i) {
         int id = i;
-        ClienteDAO cdao = new ClienteDAO();
-        Cliente c = cdao.buscarClienteId(id);
+        Cliente c = new ClienteDAO().buscarClienteId(id);
+        return c;
+    }
+
+    /**
+     * Busca um cliente pelo CPF.
+     *
+     * @param cp : o CPF do cliente a ser buscado
+     * @return o objeto Cliente correspondente ao CPF especificado, ou null se
+     * não for encontrado
+     */
+    public Cliente buscarClienteCpf(String cp) {
+        String cpf = cp;
+        Cliente c = new ClienteDAO().buscarClienteCpf(cpf);
         return c;
     }
 }

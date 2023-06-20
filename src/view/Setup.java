@@ -8,21 +8,23 @@ import Controller.FuncionarioController;
 import com.formdev.flatlaf.IntelliJTheme;
 
 /**
+ * Setup é a classe responsável pela configuração inicial do sistema. A classe
+ * Setup é uma a tela de login
  *
  * @author kaior
  */
 public class Setup extends javax.swing.JFrame {
 
     FuncionarioController fc = new FuncionarioController();
-    
+
     /**
-     * Creates new form Home
+     * Construtor da classe Setup.
      */
     public Setup() {
         initComponents();
         this.setTitle("BJ HOSTEL - Login");
         this.setLocationRelativeTo(null);
-        fc.cadastra();
+        fc.cadastrarFuncionario();
     }
 
     /**

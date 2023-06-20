@@ -15,6 +15,7 @@ import model.Hospedagem;
 import model.Util;
 
 /**
+ * Classe responsável por controlar a adição de eventos em uma hospedagem
  *
  * @author 2020101202010138
  */
@@ -27,11 +28,19 @@ public class AddEvento extends javax.swing.JFrame {
     Hospedagens hs;
     Evento e;
 
+    /**
+     * Construtor vazio.
+     */
     public AddEvento() {
     }
 
     /**
-     * Creates new form CadCliente
+     * Construtor que recebe uma hospedagem, detalhes de hospedagem e a tela com
+     * uma lista de hospedagens.
+     *
+     * @param h : a hospedagem
+     * @param hds : os detalhes de hospedagem
+     * @param hd : as hospedagens
      */
     public AddEvento(Hospedagem h, HospedagemDetalhes hds, Hospedagens hd) {
         initComponents();
@@ -51,7 +60,13 @@ public class AddEvento extends javax.swing.JFrame {
     public Evento getEvent() {
         return e;
     }
-    
+
+    /**
+     * Busca um evento pelo nome.
+     *
+     * @param n : o nome do evento a ser buscado
+     * @return o objeto Evento correspondente ao nome especificado
+     */
     public Evento buscarEvento(String n) {
         String nome = n;
         EventoController ec = new EventoController();
@@ -59,9 +74,14 @@ public class AddEvento extends javax.swing.JFrame {
         return e;
     }
 
+    /**
+     * Preenche a lista de eventos disponíveis em um componente de seleção.
+     * Remove todos os itens existentes na lista antes de adicionar os eventos
+     * disponíveis.
+     */
     public void listaEventDisp() {
         EventoController ed = new EventoController();
-        List<Evento> lista = ed.listar();
+        List<Evento> lista = ed.listarEvento();
         boxEventos.removeAllItems();
         for (Evento e : lista) {
             boxEventos.addItem(e.getNomeEvento());
@@ -197,7 +217,7 @@ public class AddEvento extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         //botão para adicionar evento na hospedagem
-        
+
         Util util = new Util();
         if (util.VerificaInput(this)) {
             e = buscarEvento(boxEventos.getSelectedItem().toString());
