@@ -1,10 +1,4 @@
-
-
 CREATE DATABASE BDHOSTEL;
-
-GRANT ALL ON *.* TO 'kaio'@'%' WITH GRANT OPTION;
-flush privileges;
-
 
 USE BDHOSTEL;
 
@@ -13,13 +7,13 @@ CREATE TABLE tb_clientes (
   id int auto_increment primary key,
   nome varchar(100),
   dataNasc varchar(30),
-  rg varchar (30),
+  rg varchar (15),
   cpf varchar (20),
   email varchar(200),
   celular varchar(30),
-  cep varchar(100),
+  cep varchar(15),
   endereco varchar(255),
-  complemento varchar(200),
+  complemento varchar(255),
   cidade varchar(100),
   estado varchar(50)
 );
@@ -32,11 +26,11 @@ CREATE TABLE tb_funcionarios (
   cpf varchar(20),
   email varchar(200),
   senha varchar(10),
-  cargo varchar(100),
+  cargo varchar(10),
   celular varchar(30),
-  cep varchar(100),
+  cep varchar(15),
   endereco varchar(255),
-  complemento varchar(200),
+  complemento varchar(255),
   cidade varchar(100),
   estado varchar(2)
 );
@@ -48,7 +42,8 @@ CREATE TABLE tb_quartos (
   num_camas int,
   descricao varchar(100),
   preco decimal(10,2),
-  tamanho decimal(10,2)
+  tamanho int,
+  status varchar(30)
 );
 
 
@@ -57,10 +52,10 @@ CREATE TABLE tb_hospedagens (
   id int auto_increment primary key,
   id_cliente int,
   quarto_id int,
-  data_checkin datetime,
-  data_checkout datetime,
+  data_checkin date,
+  data_checkout date,
   num_hospedes int,
-  placa_veiculo varchar(10),
+  placa_veiculo varchar(20),
   total decimal(10,2),
 
   FOREIGN KEY (quarto_id) REFERENCES tb_quartos(id),
@@ -70,7 +65,7 @@ CREATE TABLE tb_hospedagens (
 /***** TABELA SERVICOS DISPONIVEIS *****/
 CREATE TABLE tb_servicosDisponivel (
   id int auto_increment primary key,
-  nome varchar(15),
+  nome varchar(255),
   preco decimal(10,2)
 );
 
@@ -88,12 +83,8 @@ CREATE TABLE tb_servicos (
 
 /***** TABELA HOSPEDAGEM & SERVIÇOS *****/
 CREATE TABLE hospedagem_servico (
-  id int auto_increment primary key,
   servico_id int,
   hospedagem_id int,
-  data_servico datetime,
-  qtd int,
-  status varchar(15),
   
   FOREIGN KEY (servico_id) REFERENCES tb_servicos(id),
   FOREIGN KEY (hospedagem_id) REFERENCES tb_hospedagens(id)
@@ -127,3 +118,9 @@ CREATE TABLE fatura (
     FOREIGN KEY (cliente_id) REFERENCES tb_clientes(id),
     FOREIGN KEY (hospedagem_id) REFERENCES tb_hospedagens(id)
 );
+
+
+/***** CRIAR USUARIO *****/
+CREATE USER 'kaio'@'%' IDENTIFIED BY '123';
+GRANT ALL ON *.* TO 'kaio'@'%' WITH GRANT OPTION;
+flush privileges;
