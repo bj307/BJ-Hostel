@@ -37,6 +37,7 @@ public class ClienteController {
         c.setComplemento(cCli.inputComplemento.getText());
         c.setCidade(cCli.inputCidade.getText());
         c.setEstado(cCli.boxUf.getSelectedItem().toString());
+        c.setSenha(cCli.senha.getText());
         cDao.cadastrarCliente(c);
     }
 
@@ -100,5 +101,14 @@ public class ClienteController {
         String cpf = cp;
         Cliente c = new ClienteDAO().buscarClienteCpf(cpf);
         return c;
+    }
+    
+    public boolean login(String c, String s) {
+        String cpf = c;
+        String senha = s;
+        if (new ClienteDAO().login(cpf, senha)) {
+            return true;
+        }
+        return false;
     }
 }

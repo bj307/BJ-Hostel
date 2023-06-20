@@ -4,13 +4,15 @@
  */
 package model;
 
+import view.MinhasHospedagens;
+
 /**
  *
  * @author kaior
  */
 public class Cliente extends Pessoa {
 
-    private int rg;
+    
     private String cep;
     private String endereco;
     private String complemento;
@@ -21,23 +23,14 @@ public class Cliente extends Pessoa {
     public Cliente() {
     }
 
-    public Cliente(int rg, String cep, String endereco, String complemento, String cidade, String estado, String nome, String dataNasc, String cpf, String email, String celular) {
-        super(nome, cpf, email, celular);
-        this.rg = rg;
+    public Cliente(String cep, String endereco, String complemento, String cidade, String estado, String dataNasc, String nome, String cpf, String email, String celular, int rg, String senha) {
+        super(nome, cpf, email, celular, rg, senha);
         this.cep = cep;
         this.endereco = endereco;
         this.complemento = complemento;
         this.cidade = cidade;
         this.estado = estado;
         this.dataNasc = dataNasc;
-    }
-
-    public int getRg() {
-        return rg;
-    }
-
-    public void setRg(int rg) {
-        this.rg = rg;
     }
 
     public String getCep() {
@@ -87,11 +80,13 @@ public class Cliente extends Pessoa {
     public void setDataNasc(String dataNasc) {
         this.dataNasc = dataNasc;
     }
-
-
+    
     @Override
-    public String toString() {
-        return "Cliente{" + "id=" + getId() + ", nome=" + getNome() + ", dataNasc=" + dataNasc + ", rg=" + rg + ", cpf=" + getCpf() + ", email=" + getEmail() + ", celular=" + getCelular() + ", cep=" + cep + ", cidade=" + cidade + ", estado=" + estado + '}';
+    public void login(String cpf) {
+        super.login(cpf);
+        MinhasHospedagens mh = new MinhasHospedagens(cpf);
+        mh.atualizaTabela();
+        mh.setVisible(true);
     }
 
 }

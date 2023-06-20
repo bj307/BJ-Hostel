@@ -4,57 +4,31 @@
  */
 package model;
 
+import view.Dashboard;
+
 /**
  *
  * @author kaior
  */
 public class Funcionario extends Pessoa {
-    
-    private int rg;
-    private String senha;
-    private String cargo;
+
     private String cep;
     private String endereco;
     private String complemento;
     private String cidade;
     private String estado;
+    private String cargo;
 
     public Funcionario() {
     }
 
     public Funcionario(int rg, String senha, String cargo, String cep, String endereco, String complemento, String cidade, String estado, String nome, String cpf, String email, String celular) {
-        super(nome, cpf, email, celular);
-        this.rg = rg;
-        this.senha = senha;
-        this.cargo = cargo;
+        super(nome, cpf, email, celular, rg, senha);
         this.cep = cep;
         this.endereco = endereco;
         this.complemento = complemento;
         this.cidade = cidade;
         this.estado = estado;
-    }
-
-    public int getRg() {
-        return rg;
-    }
-
-    public void setRg(int rg) {
-        this.rg = rg;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public String getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(String cargo) {
         this.cargo = cargo;
     }
 
@@ -97,7 +71,25 @@ public class Funcionario extends Pessoa {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
-    
-    
+
+    public String getTipo() {
+        return cargo;
+    }
+
+    public void setTipo(String tipo) {
+        this.cargo = tipo;
+    }
+
+    @Override
+    public void login(String tipo) {
+        super.login(tipo);
+        Dashboard dashboard = new Dashboard();
+        dashboard.setVisible(true);
+        if (tipo.equals("ADM")) {
+            dashboard.verificaAdm(true);
+        } else {
+            dashboard.verificaAdm(false);
+        }
+    }
+
 }

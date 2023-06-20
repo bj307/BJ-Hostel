@@ -24,7 +24,6 @@ public class Setup extends javax.swing.JFrame {
         initComponents();
         this.setTitle("BJ HOSTEL - Login");
         this.setLocationRelativeTo(null);
-        fc.cadastrarFuncionario();
     }
 
     /**

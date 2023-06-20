@@ -6,6 +6,7 @@ package Controller;
 
 import DAO.FuncionarioDAO;
 import model.Funcionario;
+import view.CadFun;
 
 /**
  * Classe responsável por controlar as operações relacionadas aos funcionários.
@@ -17,20 +18,20 @@ public class FuncionarioController {
     /**
      * Cadastra um novo funcionário.
      */
-    public void cadastrarFuncionario() {
+    public void cadastrarFuncionario(CadFun cFun) {
         Funcionario f = new Funcionario();
-        f.setNome("Kaio");
-        f.setRg(1234567);
-        f.setCpf("777.666.555-44");
-        f.setEmail("kaio@funcionario.com");
-        f.setSenha("senha");
-        f.setCargo("ADM");
-        f.setCelular("(64)9 9275-2317");
-        f.setCep("75.790-000");
-        f.setEndereco("Rua São Paulo");
-        f.setComplemento("IF Goiano");
-        f.setCidade("Urutaí");
-        f.setEstado("GO");
+        f.setNome(cFun.inputNome.getText());
+        f.setRg(Integer.parseInt(cFun.inputRg.getText()));
+        f.setCpf(cFun.inputCpf.getText());
+        f.setEmail(cFun.inputEmail.getText());
+        f.setSenha(cFun.senha.getText());
+        f.setTipo(cFun.boxCargo.getSelectedItem().toString());
+        f.setCelular(cFun.inputCelular.getText());
+        f.setCep(cFun.inputCep.getText());
+        f.setEndereco(cFun.inputEndereco.getText());
+        f.setComplemento(cFun.inputComplemento.getText());
+        f.setCidade(cFun.inputCidade.getText());
+        f.setEstado(cFun.boxUf.getSelectedItem().toString());
         FuncionarioDAO fDao = new FuncionarioDAO();
         fDao.cadastrarFuncionario(f);
     }
@@ -41,10 +42,12 @@ public class FuncionarioController {
      * @param i : o RG do funcionário
      * @param s : a senha do funcionário
      */
-    public void login(int i, String s) {
+    public boolean login(int i, String s) {
         int rg = i;
         String senha = s;
-        FuncionarioDAO fDao = new FuncionarioDAO();
-        fDao.login(rg, senha);
+        if (new FuncionarioDAO().login(rg, senha)) {
+            return true;
+        }
+        return false;
     }
 }

@@ -15,15 +15,19 @@ public abstract class Pessoa {
     private String cpf;
     private String email;
     private String celular;
+    private int rg;
+    private String senha;
 
     public Pessoa() {
     }
-    
-    public Pessoa(String nome, String cpf, String email, String celular) {
+
+    public Pessoa(String nome, String cpf, String email, String celular, int rg, String senha) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
         this.celular = celular;
+        this.rg = rg;
+        this.senha = senha;
     }
     
     public int getId() {
@@ -64,6 +68,26 @@ public abstract class Pessoa {
 
     public void setCelular(String celular) {
         this.celular = celular;
+    }
+
+    public int getRg() {
+        return rg;
+    }
+
+    public void setRg(int rg) {
+        this.rg = rg;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+    
+    public void login(String tipo) {
+        System.out.println("logado");
     }
 
     @Override

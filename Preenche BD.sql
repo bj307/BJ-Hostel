@@ -1,3 +1,6 @@
+/***** INSERE USUÁRIO ADM *****/
+INSERT INTO `tb_funcionarios`(`nome`, `rg`, `cpf`, `email`, `senha`, `cargo`, `celular`, `cep`, `endereco`, `complemento`, `cidade`, `estado`) VALUES ('Usuário ADM',1234567,'700.600.500-40','adm@email.com','senha','ADM','(64) 9 9275-2317','75.790-000','Rua do IF','IF Goiano','Urutaí','GO')
+
 /***** ADICIONA SERVIÇOS DISPONIVEIS *****/
 INSERT INTO tb_servicosdisponivel (nome, preco) VALUES 
 ('Limpeza','90'),

@@ -28,8 +28,8 @@ public class ClienteDAO {
 
     public void cadastrarCliente(Cliente cliente) {
         try {
-            String sql = "insert into tb_clientes (nome, dataNasc, rg, cpf, email, celular, cep, endereco, complemento, cidade, estado) "
-                    + "values (?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into tb_clientes (nome, dataNasc, rg, cpf, email, celular, cep, endereco, complemento, cidade, estado, senha) "
+                    + "values (?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement state = con.prepareStatement(sql);
 
             state.setString(1, cliente.getNome());
@@ -43,6 +43,7 @@ public class ClienteDAO {
             state.setString(9, cliente.getComplemento());
             state.setString(10, cliente.getCidade());
             state.setString(11, cliente.getEstado());
+            state.setString(12, cliente.getSenha());
 
             state.execute();
             state.close();
@@ -175,6 +176,26 @@ public class ClienteDAO {
         } catch (SQLException e) {
             System.out.println("Erro:::: " + e);
             return null;
+        }
+    }
+    
+    public boolean login(String cpf, String senha) {
+        try {
+            String sql = "select * from tb_clientes where cpf = ? and senha = ?";
+            PreparedStatement state = con.prepareStatement(sql);
+            state.setString(1, cpf);
+            state.setString(2, senha);
+            ResultSet rs = state.executeQuery();
+            Cliente c = new Cliente();
+            if (rs.next()) {
+                c.login(cpf);
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println(e + "logou nao");
+            return false;
         }
     }
 }

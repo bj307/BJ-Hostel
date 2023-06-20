@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import jdbc.ConnectBD;
 import model.Funcionario;
-import view.Dashboard;
 
 /**
  *
@@ -35,7 +34,7 @@ public class FuncionarioDAO {
             state.setString(3, funcionario.getCpf());
             state.setString(4, funcionario.getEmail());
             state.setString(5, funcionario.getSenha());
-            state.setString(6, funcionario.getCargo());
+            state.setString(6, funcionario.getTipo());
             state.setString(7, funcionario.getCelular());
             state.setString(8, funcionario.getCep());
             state.setString(9, funcionario.getEndereco());
@@ -45,33 +44,31 @@ public class FuncionarioDAO {
             state.execute();
             state.close();
 
-            System.out.println("Funcionário cadastrado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Funcionario cadastrado com sucesso.");
         } catch (Exception e) {
             System.out.println("Erro ao cadastrar funcionario");
             System.out.println(e);
         }
     }
 
-    public void login(int rg, String senha) {
+    public boolean login(int rg, String senha) {
         try {
             String sql = "select * from tb_funcionarios where rg = ? and senha = ?";
             PreparedStatement state = con.prepareStatement(sql);
             state.setInt(1, rg);
             state.setString(2, senha);
             ResultSet rs = state.executeQuery();
+            Funcionario f = new Funcionario();
             if (rs.next()) {
-                Dashboard dashboard = new Dashboard();
-                if (rs.getString("cargo").equals("ADM")) {
-                    dashboard.verificaAdm(true);
-                } else {
-                    dashboard.verificaAdm(false);
-                }
-                dashboard.setVisible(true);
+                String tipo = rs.getString("cargo");
+                f.login(tipo);
+                return true;
             } else {
-                JOptionPane.showMessageDialog(null, "Sai fora hacker");
+                return false;
             }
         } catch (SQLException e) {
             System.out.println(e + "logou nao");
+            return false;
         }
     }
 

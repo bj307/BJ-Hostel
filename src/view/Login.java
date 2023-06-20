@@ -5,6 +5,7 @@
 package view;
 
 import Controller.FuncionarioController;
+import Controller.ClienteController;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -15,6 +16,7 @@ import java.awt.Shape;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
+import javax.swing.JOptionPane;
 
 /**
  * A classe Login é responsável por permitir que um funcionário faça login no
@@ -46,21 +48,47 @@ public class Login extends javax.swing.JPanel {
         setVisible(true);
     }
 
+    private boolean loginCliente() {
+        String cpf;
+        String senha;
+        cpf = inputUser.getText();
+        senha = inputPass.getText();
+        ClienteController cc = new ClienteController();
+        if (cc.login(cpf, senha)) {
+            setup.setVisible(false);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean loginFun() {
+        int rg;
+        String senha;
+        rg = Integer.parseInt(inputUser.getText());
+        senha = inputPass.getText();
+        FuncionarioController fc = new FuncionarioController();
+        if (fc.login(rg, senha)) {
+            setup.setVisible(false);
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Tenta realizar o login de um funcionário com base nos dados fornecidos.
      *
      */
     public void realizaLogin() {
         try {
-            int rg;
-            String senha;
-            rg = Integer.parseInt(inputUser.getText());
-            senha = inputPass.getText();
-            FuncionarioController fc = new FuncionarioController();
-            fc.login(rg, senha);
-            setup.setVisible(false);
+            if (loginCliente()) {
+                return;
+            } 
+            if (loginFun()) {
+                return;
+            }
         } catch (Exception e) {
-            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Sai fora hacker");
+            System.out.println(e + "::::::erro");
         }
     }
 

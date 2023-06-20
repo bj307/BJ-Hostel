@@ -4,6 +4,7 @@
  */
 package view;
 
+import Controller.FuncionarioController;
 import com.formdev.flatlaf.IntelliJTheme;
 import java.awt.CardLayout;
 
@@ -78,6 +79,7 @@ public class Dashboard extends javax.swing.JFrame {
         servicos = new javax.swing.JLabel();
         cadFuncionario = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        sair = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(61, 61, 61));
@@ -164,6 +166,11 @@ public class Dashboard extends javax.swing.JFrame {
         cadFuncionario.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         cadFuncionario.setText("Funcionários");
         cadFuncionario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cadFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                cadFuncionarioMouseReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -219,15 +226,30 @@ public class Dashboard extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(61, 61, 61));
 
+        sair.setFont(new java.awt.Font("Montserrat Medium", 0, 14)); // NOI18N
+        sair.setText("Deslogar");
+        sair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        sair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                sairMouseReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(sair)
+                .addGap(45, 45, 45))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 133, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addComponent(sair)
+                .addGap(58, 58, 58))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -249,7 +271,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 668, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addComponent(jLabel2)
@@ -305,6 +327,17 @@ public class Dashboard extends javax.swing.JFrame {
         hospedagem.atualizaTabela();
     }//GEN-LAST:event_reservasMouseReleased
 
+    private void cadFuncionarioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadFuncionarioMouseReleased
+        //cadastrar funcionario
+        new CadFun().setVisible(true);
+    }//GEN-LAST:event_cadFuncionarioMouseReleased
+
+    private void sairMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sairMouseReleased
+        //botao deslogar
+        new Setup().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_sairMouseReleased
+
     /**
      * @param args the command line arguments
      */
@@ -335,6 +368,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel quartos;
     private javax.swing.JLabel reservas;
+    private javax.swing.JLabel sair;
     private javax.swing.JLabel servicos;
     // End of variables declaration//GEN-END:variables
 }
