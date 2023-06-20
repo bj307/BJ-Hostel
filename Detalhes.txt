@@ -1,0 +1,3 @@
+polimosfismo: metodo de login, se adm aparece opção de funcionarios, se atendente oculta opção funcionarios
+herança: 
+FAZER SLIDE COM REQUISITOS
