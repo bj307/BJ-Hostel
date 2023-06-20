@@ -158,7 +158,9 @@ public class HospedagemDetalhes extends javax.swing.JFrame {
     }
 
     public void verFatura(Hospedagem hp) {
-
+        Fatura f = new Fatura();
+        f.setVisible(true);
+        f.preencherFatura(h.getCliente(), h);
     }
 
     /**

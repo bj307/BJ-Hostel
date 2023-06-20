@@ -107,7 +107,7 @@ public class Quartos extends javax.swing.JPanel {
 
         novoQuarto.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
         novoQuarto.setText("Novo quarto");
-        novoQuarto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        novoQuarto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         novoQuarto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 novoQuartoMouseReleased(evt);
@@ -348,12 +348,10 @@ public class Quartos extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -362,12 +360,10 @@ public class Quartos extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel nQuartoDuplo;
     private javax.swing.JLabel nQuartoEspecial;
     private javax.swing.JLabel nQuartoSimples;
-    private javax.swing.JLabel novoEvento1;
     private javax.swing.JLabel novoQuarto;
     private javax.swing.JTable tbQuartos;
     // End of variables declaration//GEN-END:variables
